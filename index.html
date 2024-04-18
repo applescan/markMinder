@@ -5,7 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Mark-Minder - Your Bookmarking Companion</title>
 <link rel="stylesheet" href="css/style.css">
-<meta name="description" content="Mark-Minder helps you organize, save, and access your favorite web pages easily. Enhance your web browsing experience with structured bookmarking and personalized collections.">
+<meta name="description"
+  content="Mark-Minder helps you organize, save, and access your favorite web pages easily. Enhance your web browsing experience with structured bookmarking and personalized collections.">
 
 <!-- Open Graph / Facebook -->
 <meta property="og:title" content="Mark-Minder - Organize Your Bookmarks">
@@ -25,95 +26,76 @@
 <!-- Site or application content -->
 <main class="container">
   <section class="hero">
-  <div class="hero-body">
-  <p class="title">Hero title</p>
-  <h2 class="subtitle">Welcome to Mark-Minder, your ultimate tool for managing web bookmarks. Organize your online resources with ease and efficiency.</h2>
+    <div class="hero-body">
+      <p class="title">Mark-Minder</p>
+      <h2 class="subtitle">Welcome to Mark-Minder, your ultimate tool for managing web bookmarks. Organize your online
+        resources with ease and efficiency.</h2>
+
+      <form id="bookmark-form">
+        <div class="field">
+          <p class="control has-icons-left has-icons-right">
+            <input class="input" type="text" placeholder="Bookmark name" name="bookmarkName" required>
+            <span class="icon is-small is-left">
+              <i class="fas fa-bookmark"></i>
+            </span>
+            <span class="icon is-small is-right">
+              <i class="fas fa-check"></i>
+            </span>
+          </p>
+        </div>
+        <div class="field">
+          <p class="control has-icons-left">
+            <input class="input" type="url" placeholder="URL" name="bookmarkUrl" required>
+            <span class="icon is-small is-left">
+              <i class="fas fa-link"></i>
+            </span>
+          </p>
+        </div>
+        <div class="field">
+          <p class="control">
+            <button class="button is-success" type="submit">
+              Bookmark
+            </button>
+          </p>
+        </div>
+      </form>
 
 
-<form id="bookmark-form">
-  <div class="field">
-    <p class="control has-icons-left has-icons-right">
-      <input class="input" type="text" placeholder="Bookmark name" name="bookmarkName" required>
-      <span class="icon is-small is-left">
-        <i class="fas fa-bookmark"></i>
-      </span>
-      <span class="icon is-small is-right">
-        <i class="fas fa-check"></i>
-      </span>
-    </p>
-  </div>
-  <div class="field">
-    <p class="control has-icons-left">
-      <input class="input" type="url" placeholder="URL" name="bookmarkUrl" required>
-      <span class="icon is-small is-left">
-        <i class="fas fa-link"></i>
-      </span>
-    </p>
-  </div>
-  <div class="field">
-    <p class="control">
-      <button class="button is-success" type="submit">
-        Bookmark
-      </button>
-    </p>
-  </div>
-</form>
+      <!-- //template card for the links  -->
+      <template id="card-template">
+        <article class="media">
+          <figure class="media-left">
+            <p class="image is-64x64">
+              <img src="https://bulma.io/assets/images/placeholders/128x128.png" />
+            </p>
+          </figure>
+          <div class="media-content">
+            <div class="content">
+              <h6 class="title is-6"></h6>
+              <a class="url" href="#" target="_blank"></a>
+            </div>
+          </div>
+          <div class="media-right">
+            <div class="buttons">
+              <!-- Buttons will be appended here -->
+            </div>
+          </div>
+        </article>
+      </template>
 
- 
-<!-- //template card for the links  -->
-  <template id="card-template-personalityNormal">
-            <div class="col mb-4">
-                <div id="card-list">
-                    <div class="card h-100">
-                        <img class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <div class="card-title"></div>
-                            <div class="card-text"></div>
-                            <p class="card-p"></p>
-                        </div>
-                    </div>
-        </template>
-
-<div id="storageList"></div>
+      <!-- bookmark items will show here -->
+      <div id="bookmark-list"></div>
 
 
+      <!-- pagination starts here -->
+      <nav class="pagination is-centered" role="navigation" aria-label="pagination">
+        <a id="pagination-previous" class="pagination-previous">Previous</a>
+        <a id="pagination-next" class="pagination-next">Next page</a>
+        <ul class="pagination-list"></ul>
+      </nav>
 
-  <article class="media">
-  <figure class="media-left">
-    <p class="image is-64x64">
-      <img src="https://bulma.io/assets/images/placeholders/128x128.png" />
-    </p>
-  </figure>
-  <div class="media-content">
-    <div class="content">
-      <p>
-        <strong>John Smith</strong> <small>@johnsmith</small> <small>31m</small>
-        <br />
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ornare
-        magna eros, eu pellentesque tortor vestibulum ut. Maecenas non massa
-        sem. Etiam finibus odio quis feugiat facilisis.
-      </p>
+
     </div>
-    <nav class="level is-mobile">
-      <div class="level-left">
-        <a class="level-item">
-          <span class="icon is-small"><i class="fas fa-reply"></i></span>
-        </a>
-        <a class="level-item">
-          <span class="icon is-small"><i class="fas fa-retweet"></i></span>
-        </a>
-        <a class="level-item">
-          <span class="icon is-small"><i class="fas fa-heart"></i></span>
-        </a>
-      </div>
-    </nav>
-  </div>
-  <div class="media-right">
-    <button class="delete"></button>
-  </div>
-</article>
-
- </div>
-</section>
+  </section>
 </main>
 <script src="js/app.js" type="module"></script>
