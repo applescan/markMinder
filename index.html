@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mark-Minder - Your Bookmarking Companion</title>
+<link rel="stylesheet" href="css/style.css">
+<meta name="description" content="Mark-Minder helps you organize, save, and access your favorite web pages easily. Enhance your web browsing experience with structured bookmarking and personalized collections.">
+
+<!-- Open Graph / Facebook -->
+<meta property="og:title" content="Mark-Minder - Organize Your Bookmarks">
+<meta property="og:type" content="website">
+<meta property="og:url" content="http://www.markminder.com">
+<meta property="og:image" content="http://www.markminder.com/image.jpg">
+<meta property="og:image:alt" content="Screenshot of the Mark-Minder app interface">
+
+<!-- Icons -->
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon.png">
+<link rel="manifest" href="site.webmanifest">
+<meta name="theme-color" content="#fafafa">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+
+<!-- Site or application content -->
+<main class="container">
+  <section class="hero">
+  <div class="hero-body">
+  <p class="title">Hero title</p>
+  <h2 class="subtitle">Welcome to Mark-Minder, your ultimate tool for managing web bookmarks. Organize your online resources with ease and efficiency.</h2>
+
+
+<form id="bookmark-form">
+  <div class="field">
+    <p class="control has-icons-left has-icons-right">
+      <input class="input" type="text" placeholder="Bookmark name" name="bookmarkName" required>
+      <span class="icon is-small is-left">
+        <i class="fas fa-bookmark"></i>
+      </span>
+      <span class="icon is-small is-right">
+        <i class="fas fa-check"></i>
+      </span>
+    </p>
+  </div>
+  <div class="field">
+    <p class="control has-icons-left">
+      <input class="input" type="url" placeholder="URL" name="bookmarkUrl" required>
+      <span class="icon is-small is-left">
+        <i class="fas fa-link"></i>
+      </span>
+    </p>
+  </div>
+  <div class="field">
+    <p class="control">
+      <button class="button is-success" type="submit">
+        Bookmark
+      </button>
+    </p>
+  </div>
+</form>
+
+ 
+<!-- //template card for the links  -->
+  <template id="card-template-personalityNormal">
+            <div class="col mb-4">
+                <div id="card-list">
+                    <div class="card h-100">
+                        <img class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <div class="card-title"></div>
+                            <div class="card-text"></div>
+                            <p class="card-p"></p>
+                        </div>
+                    </div>
+        </template>
+
+<div id="storageList"></div>
+
+
+
+  <article class="media">
+  <figure class="media-left">
+    <p class="image is-64x64">
+      <img src="https://bulma.io/assets/images/placeholders/128x128.png" />
+    </p>
+  </figure>
+  <div class="media-content">
+    <div class="content">
+      <p>
+        <strong>John Smith</strong> <small>@johnsmith</small> <small>31m</small>
+        <br />
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ornare
+        magna eros, eu pellentesque tortor vestibulum ut. Maecenas non massa
+        sem. Etiam finibus odio quis feugiat facilisis.
+      </p>
+    </div>
+    <nav class="level is-mobile">
+      <div class="level-left">
+        <a class="level-item">
+          <span class="icon is-small"><i class="fas fa-reply"></i></span>
+        </a>
+        <a class="level-item">
+          <span class="icon is-small"><i class="fas fa-retweet"></i></span>
+        </a>
+        <a class="level-item">
+          <span class="icon is-small"><i class="fas fa-heart"></i></span>
+        </a>
+      </div>
+    </nav>
+  </div>
+  <div class="media-right">
+    <button class="delete"></button>
+  </div>
+</article>
+
+ </div>
+</section>
+</main>
+<script src="js/app.js" type="module"></script>
