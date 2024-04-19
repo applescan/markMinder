@@ -1,20 +1,27 @@
+// variables
+const bookmarks = JSON.parse(localStorage.getItem('bookmarks')) || [];
+
 document.getElementById('bookmark-form').addEventListener('submit', function (event) {
-  event.preventDefault(); // Prevent page reload
+    event.preventDefault(); // Prevent page reload
 
-  const bookmarkName = this.bookmarkName.value.trim();
-  const bookmarkUrl = this.bookmarkUrl.value.trim();
+    const bookmarkName = this.bookmarkName.value.trim();
+    const bookmarkUrl = this.bookmarkUrl.value.trim();
 
-  if (!bookmarkName || !isValidUrl(bookmarkUrl)) {
-    alert('Please enter a valid URL.');
-    return;
-  }
+    if (!bookmarkName || !isValidUrl(bookmarkUrl)) {
+        alert('Please enter a valid URL.');
+        return;
+    }
 
-  const bookmark = { name: bookmarkName, url: bookmarkUrl };
-  saveBookmark(bookmark);
-  this.reset(); // Reset the form
-  window.location.href = '/result.html';
+    const bookmark = { name: bookmarkName, url: bookmarkUrl };
+    saveBookmark(bookmark);
+    // Save the last submitted bookmark to localStorage for access on the results page
+    localStorage.setItem('lastSubmittedBookmark', JSON.stringify(bookmark));
+
+    this.reset(); // Reset the form
+    window.location.href = '/result.html';
 });
 
+//validate form inputs 
 function isValidUrl(string) {
   try {
     new URL(string);
@@ -26,24 +33,23 @@ function isValidUrl(string) {
 
 // Functions for handling bookmarks
 function saveBookmark(bookmark) {
-  let bookmarks = JSON.parse(localStorage.getItem('bookmarks')) || [];
   bookmarks.push(bookmark);
   localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
   refresh(); // Refresh display after adding a bookmark
 }
 
 function refresh() {
-  changePage(current_page); // Refresh to the current page
+  load_current_page(current_page); // Refresh to the current page
 }
 
 function addControlButtons(card, index) {
-  const btn_edit = document.createElement('button');
+//   const btn_edit = document.createElement('button');
   btn_edit.className = 'button is-link';
   btn_edit.textContent = 'Edit';
   btn_edit.onclick = () => editBookmark(index);
   card.querySelector('.buttons').appendChild(btn_edit);
 
-  const btn_delete = document.createElement('button');
+//   const btn_delete = document.createElement('button');
   btn_delete.className = 'button is-danger';
   btn_delete.textContent = 'Delete';
   btn_delete.onclick = () => {
@@ -63,7 +69,6 @@ function addCard(name, url) {
 }
 
 function editBookmark(index) {
-  let bookmarks = JSON.parse(localStorage.getItem('bookmarks')) || [];
   let bookmark = bookmarks[index];
 
   const newName = prompt('Enter new bookmark name:', bookmark.name);
@@ -76,7 +81,6 @@ function editBookmark(index) {
 }
 
 function deleteBookmark(index) {
-  let bookmarks = JSON.parse(localStorage.getItem('bookmarks')) || [];
   bookmarks.splice(index, 1); // Remove the bookmark
   localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
   refresh(); // Refresh the list
@@ -84,19 +88,26 @@ function deleteBookmark(index) {
 
 // Pagination control variables
 let current_page = 1; // Tracks the current page
-const records_per_page = 20; // Number of records per page
+const records_per_page = 5; // Number of records per page
 
 // Initialize pagination on page load
 window.onload = function () {
-  document.getElementById("pagination-previous").addEventListener("click", prevPage);
-  document.getElementById("pagination-next").addEventListener("click", nextPage);
-  changePage(current_page); // Initial page setup
+    // Retrieve pagination controls
+    const nextButton = document.getElementById("pagination-next");
+    const prevButton = document.getElementById("pagination-previous");
+
+    // Setup pagination event listeners if elements exist
+    if (nextButton && prevButton) {
+        nextButton.addEventListener("click", nextPage);
+        prevButton.addEventListener("click", prevPage);
+    }
+
+    // Load the initial page
+    load_current_page(current_page);
 };
 
 // Change page function
-function changePage(page) {
-  const bookmarks = JSON.parse(localStorage.getItem('bookmarks')) || [];
-  bookmarks.reverse()
+function load_current_page(page) {
   
   if (bookmarks.length === 0) {
     document.getElementById("bookmark-list").innerHTML = "<p>No bookmarks stored.</p>";
@@ -124,14 +135,62 @@ function changePage(page) {
   updatePaginationLinks(current_page, bookmarks.length);
 }
 
+// Function to sort bookmarks based on the specified order
+function sort_bookmarks(order) {
+    bookmarks.sort((a, b) => {
+        const nameA = a.name.toUpperCase(); // normalize case
+        const nameB = b.name.toUpperCase(); // normalize case
+        if (nameA < nameB) {
+            return order === 'asc' ? -1 : 1;
+        }
+        if (nameA > nameB) {
+            return order === 'asc' ? 1 : -1;
+        }
+        return 0; // names must be equal
+    });
+    load_current_page(current_page); // reload the current page with the sorted bookmarks
+}
+
+function order_bookmarks() {
+  bookmarks.reverse()
+    const order_text = document.querySelector(".order_text");
+  if (order_text.innerHTML === 'Order by earliest to latest' ) {
+    order_text.innerHTML = 'Order by latest to earliest'
+  } else {
+    order_text.innerHTML = 'Order by earliest to latest'; 
+  }
+  load_current_page(current_page); // reload the current page with the sorted bookmarks
+}
+
+// Attach event listeners
+document.getElementById('sort_a_z').addEventListener("click", function() {
+    sort_bookmarks('asc');
+});
+
+document.getElementById('sort_z_a').addEventListener("click", function() {
+    sort_bookmarks('desc');
+});
+
+document.getElementById('order').addEventListener("click", function() {
+    order_bookmarks()
+});
+
 // Update pagination links dynamically based on the current page and total items
 function updatePaginationLinks(currentPage, totalItems) {
+  const nextButton = document.getElementById("pagination-next");
+  const prevButton = document.getElementById("pagination-previous");
+
+  const total_pages = numPages(totalItems);
+  
+  // Hide or show pagination buttons based on the page conditions
+  nextButton.style.visibility = (currentPage >= total_pages || total_pages <= 1) ? "hidden" : "visible";
+  prevButton.style.visibility = (currentPage > 1) ? "visible" : "hidden";
+
+  // Adjust pagination list for manual page selection (if applicable)
   const pagination_list = document.querySelector(".pagination-list");
   pagination_list.innerHTML = ''; // Clear existing links
 
-  let total_pages = numPages(totalItems);
-
-  if (total_pages <= 1) return; // No pagination if 1 or fewer pages
+  if (total_pages <= 1) return; // No need for pagination links if only one page or none
 
   for (let page = 1; page <= total_pages; page++) {
     const li = document.createElement('li');
@@ -139,7 +198,7 @@ function updatePaginationLinks(currentPage, totalItems) {
     a.className = 'pagination-link';
     a.href = '#';
     a.textContent = page;
-    a.onclick = (function (p) { return function () { changePage(p); } })(page);
+    a.onclick = (function (p) { return function () { load_current_page(p); } })(page);
 
     if (page === currentPage) {
       a.classList.add('is-current');
@@ -150,6 +209,7 @@ function updatePaginationLinks(currentPage, totalItems) {
   }
 }
 
+
 // Calculate the number of pages
 function numPages(totalItems) {
   return Math.ceil(totalItems / records_per_page);
@@ -158,13 +218,14 @@ function numPages(totalItems) {
 // Navigate to the previous page
 function prevPage() {
   if (current_page > 1) {
-    changePage(current_page - 1);
+    load_current_page(current_page - 1);
   }
 }
 
 // Navigate to the next page
 function nextPage() {
   if (current_page < numPages(JSON.parse(localStorage.getItem('bookmarks')).length)) {
-    changePage(current_page + 1);
+    load_current_page(current_page + 1);
   }
 }
+

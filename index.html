@@ -32,14 +32,12 @@
         resources with ease and efficiency.</h2>
 
       <form id="bookmark-form">
+<!-- need to work on custom validation  -->
         <div class="field">
           <p class="control has-icons-left has-icons-right">
             <input class="input" type="text" placeholder="Bookmark name" name="bookmarkName" required>
             <span class="icon is-small is-left">
               <i class="fas fa-bookmark"></i>
-            </span>
-            <span class="icon is-small is-right">
-              <i class="fas fa-check"></i>
             </span>
           </p>
         </div>
@@ -60,6 +58,36 @@
         </div>
       </form>
 
+<!-- add sorting option from latest to earliest date, a-b or b-a  -->
+  <div class="dropdown is-hoverable">
+  <div class="dropdown-trigger">
+    <button class="button" aria-haspopup="true" aria-controls="dropdown-menu4">
+      <span>Sorting and Order</span>
+      <span class="icon is-small">
+        <i class="fas fa-angle-down" aria-hidden="true"></i>
+      </span>
+    </button>
+  </div>
+  <div class="dropdown-menu" id="dropdown-menu4" role="menu">
+    <div class="dropdown-content">
+      <div class="dropdown-item" id="sort_a_z">
+        <p>
+          Sort Alphabetically<strong> A-Z</strong> 
+        </p>
+      </div>
+      <div class="dropdown-item" id="sort_z_a">
+        <p>
+          Sort Alphabetically<strong> Z-A</strong> 
+        </p>
+      </div>
+        <div class="dropdown-item" id="order">
+        <p class="order_text">
+         Order by latest to earliest
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
 
       <!-- //template card for the links  -->
       <template id="card-template">
@@ -77,6 +105,12 @@
           </div>
           <div class="media-right">
             <div class="buttons">
+               <button class="button is-link">
+              Edit
+            </button>
+             <button class="button is-danger">
+              Delete
+            </button>
               <!-- Buttons will be appended here -->
             </div>
           </div>
