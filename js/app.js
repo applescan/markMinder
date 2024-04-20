@@ -57,7 +57,9 @@ document.addEventListener('DOMContentLoaded', () => {
  */
 function initializeTheme() {
   const themeIcon = document.getElementById('theme-icon').querySelector('i');
-  const defaultThemeDark = document.documentElement.getAttribute('data-theme')
+  const defaultThemeDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+  document.documentElement.setAttribute('data-theme', defaultThemeDark ? 'dark' : 'light');
   themeIcon.className = defaultThemeDark ? 'fas fa-sun' : 'fas fa-moon';
 
   document.getElementById('theme-icon').addEventListener('click', toggleTheme);
