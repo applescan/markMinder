@@ -1,5 +1,5 @@
 @import url(https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css);
-   
+
 html {
   font-family: 'open sans', arial, sans-serif;
   color: #222;
@@ -19,6 +19,46 @@ html {
 ::selection {
   background: #b3d4fc;
   text-shadow: none;
+}
+
+.lottie-background {
+  position: fixed;
+  /* Ensures the background covers the whole viewport */
+  top: 0;
+  left: 0;
+  width: 100vw;
+  /* Full viewport width */
+  height: 100vh;
+  /* Full viewport height */
+  z-index: -1;
+  /* Keep it behind other content */
+  overflow: hidden;
+  /* Prevents overflow */
+}
+
+.lottie-player {
+  position: absolute;
+  min-width: 100%;
+  min-height: 100%;
+  width: 100vw;
+  height: 100vh;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(2.4);
+  /* Adjust scale to cover entire viewport */
+  opacity: 0.05;
+}
+
+.dropdown-item {
+  cursor: pointer;
+}
+
+html[data-theme="light"] .dropdown-item:hover {
+  background-color: var(--bulma-link-light);
+}
+
+html[data-theme="dark"] .dropdown-item:hover {
+  background-color: var(--bulma-link);
 }
 
 /*
@@ -159,9 +199,9 @@ textarea {
 }
 
 @media print,
-  (-webkit-min-device-pixel-ratio: 1.25),
-  (min-resolution: 1.25dppx),
-  (min-resolution: 120dpi) {
+(-webkit-min-device-pixel-ratio: 1.25),
+(min-resolution: 1.25dppx),
+(min-resolution: 120dpi) {
   /* Style adjustments for high resolution devices */
 }
 
@@ -172,6 +212,7 @@ textarea {
    ========================================================================== */
 
 @media print {
+
   *,
   *::before,
   *::after {
@@ -231,4 +272,3 @@ textarea {
     page-break-after: avoid;
   }
 }
-

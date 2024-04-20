@@ -21,22 +21,29 @@
 <link rel="apple-touch-icon" href="icon.png">
 <link rel="manifest" href="site.webmanifest">
 <meta name="theme-color" content="#fafafa">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
 <!-- Site or application content -->
 <main class="container">
-  <section class="hero">
+  <section class="hero is-fullheight-with-navbar has-text-centered">
     <div class="hero-body">
-      <p class="title">Bookmark added</p>
-      <h2 class="subtitle">Welcome to Mark-Minder, your ultimate tool for managing web bookmarks. Organize your online
-        resources with ease and efficiency.</h2>
-        <!-- show submitted form items  -->
-    <div id="submission" class="subtitle">Loading bookmark data...</div>
+      <div class="container">
+        <p class="title">Bookmark added</p>
+        <h2 class="subtitle">Thank you for adding the bookmark!</h2>
+        <div style="display: flex; justify-content: center; width: 100%;">
+          <lottie-player src="https://lottie.host/08886fa3-0005-4d6a-92dd-c89a3a9490ab/Fb1yXTHAoa.json"
+            background="transparent" speed="1" style="width: 300px; height: 300px;" loop autoplay></lottie-player>
+        </div>
+        <div id="submission" class="subtitle">Loading bookmark data...</div>
+      </div>
     </div>
-
-    <button onclick="window.location.href='index.html'">Back</button>
-
+    <div class="hero-foot">
+      <button class="button is-link" id="back">Back</button>
+    </div>
   </section>
 </main>
 
 <script src="js/result.js" type="module"></script>
+<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+
+</html>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -21,18 +21,40 @@
 <link rel="apple-touch-icon" href="icon.png">
 <link rel="manifest" href="site.webmanifest">
 <meta name="theme-color" content="#fafafa">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
 <!-- Site or application content -->
 <main class="container">
+
+  <div id="bg-lottie-light" class="lottie-background">
+    <lottie-player class="lottie-player" src="https://lottie.host/db6af45c-e70a-43fa-83bd-a149cca1ead0/HxzIZxmhOK.json"
+      background="transparent" speed="0.4" loop autoplay>
+    </lottie-player>
+  </div>
+  <div id="bg-lottie-dark" class="lottie-background" style="display: none;">
+    <lottie-player class="lottie-player" src="https://lottie.host/778fdac5-18bb-4f5b-9425-58f8dc193421/rzqj1EY8XJ.json"
+      background="transparent" speed="0.4" loop autoplay>
+    </lottie-player>
+  </div>
+
+
   <section class="hero">
     <div class="hero-body">
+
+      <div class="is-pulled-right">
+        <button id="theme-toggle" class="button is-light">
+          <span id="theme-icon" class="icon">
+            <i class="fas fa-sun"></i> <!-- Default icon for dark mode -->
+          </span>
+        </button>
+      </div>
+
       <p class="title">Mark-Minder</p>
       <h2 class="subtitle">Welcome to Mark-Minder, your ultimate tool for managing web bookmarks. Organize your online
         resources with ease and efficiency.</h2>
 
       <form id="bookmark-form">
-<!-- need to work on custom validation  -->
+        <!-- need to work on custom validation  -->
         <div class="field">
           <p class="control has-icons-left has-icons-right">
             <input class="input" type="text" placeholder="Bookmark name" name="bookmarkName" required>
@@ -58,78 +80,111 @@
         </div>
       </form>
 
-<!-- add sorting option from latest to earliest date, a-b or b-a  -->
-  <div class="dropdown is-hoverable">
-  <div class="dropdown-trigger">
-    <button class="button" aria-haspopup="true" aria-controls="dropdown-menu4">
-      <span>Sorting and Order</span>
-      <span class="icon is-small">
-        <i class="fas fa-angle-down" aria-hidden="true"></i>
-      </span>
-    </button>
-  </div>
-  <div class="dropdown-menu" id="dropdown-menu4" role="menu">
-    <div class="dropdown-content">
-      <div class="dropdown-item" id="sort_a_z">
-        <p>
-          Sort Alphabetically<strong> A-Z</strong> 
-        </p>
-      </div>
-      <div class="dropdown-item" id="sort_z_a">
-        <p>
-          Sort Alphabetically<strong> Z-A</strong> 
-        </p>
-      </div>
-        <div class="dropdown-item" id="order">
-        <p class="order_text">
-         Order by latest to earliest
-        </p>
-      </div>
-    </div>
-  </div>
-</div>
-
-      <!-- //template card for the links  -->
-      <template id="card-template">
-        <article class="media">
-          <figure class="media-left">
-            <p class="image is-64x64">
-              <img src="https://bulma.io/assets/images/placeholders/128x128.png" />
-            </p>
-          </figure>
-          <div class="media-content">
-            <div class="content">
-              <h6 class="title is-6"></h6>
-              <a class="url" href="#" target="_blank"></a>
-            </div>
-          </div>
-          <div class="media-right">
-            <div class="buttons">
-               <button class="button is-link">
-              Edit
-            </button>
-             <button class="button is-danger">
-              Delete
-            </button>
-              <!-- Buttons will be appended here -->
-            </div>
-          </div>
-        </article>
-      </template>
-
-      <!-- bookmark items will show here -->
-      <div id="bookmark-list"></div>
-
-
-      <!-- pagination starts here -->
-      <nav class="pagination is-centered" role="navigation" aria-label="pagination">
-        <a id="pagination-previous" class="pagination-previous">Previous</a>
-        <a id="pagination-next" class="pagination-next">Next page</a>
-        <ul class="pagination-list"></ul>
-      </nav>
-
-
-    </div>
   </section>
+
+  <section class="section">
+
+      <!-- <p class="control has-icons-left has-icons-right">
+        <input class="input" type="text" placeholder="Search" name="search" id="search">
+        <span class="icon is-small is-left">
+          <i class="fas fa-search"></i>
+        </span>
+      </p> -->
+
+    <!-- add sorting option from latest to earliest date, a-b or b-a  -->
+    <div class="dropdown is-hoverable">
+      <div class="dropdown-trigger">
+        <button class="button" aria-haspopup="true" aria-controls="dropdown-menu">
+          <span>Sorting and Order</span>
+          <span class="icon is-small">
+            <i class="fas fa-angle-down" aria-hidden="true"></i>
+          </span>
+        </button>
+      </div>
+      <div class="dropdown-menu" id="dropdown-menu" role="menu">
+        <div class="dropdown-content">
+          <div class="dropdown-item" id="sort_a_z">
+            <p>
+              Sort Alphabetically<strong> A-Z</strong>
+            </p>
+          </div>
+          <div class="dropdown-item" id="sort_z_a">
+            <p>
+              Sort Alphabetically<strong> Z-A</strong>
+            </p>
+          </div>
+          <div class="dropdown-item" id="order">
+            <p class="order_text">
+              Order by latest to earliest
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+  </section>
+
+  <!-- //template card for the links  -->
+  <template id="card-template">
+    <article class="media">
+      <figure class="media-left">
+        <div class="icon is-large has-text-link-on-scheme">
+          <i class="fa-duotone fa-bookmark fas fa-3x"></i>
+        </div>
+      </figure>
+      <div class="media-content">
+        <div class="content">
+          <h6 class="title is-6"></h6>
+          <a class="url" href="#" target="_blank"></a>
+        </div>
+      </div>
+      <div class="media-right">
+        <div class="buttons">
+          <button class="button is-link" id="edit">
+            <span class="icon is-small">
+              <i class="fa-solid fa-pen-to-square fas"></i>
+            </span>
+          </button>
+          <button class="button is-danger" id="delete">
+            <span class="icon is-small">
+              <i class="fa-solid fa-trash-can fas"></i>
+            </span>
+          </button>
+        </div>
+      </div>
+    </article>
+  </template>
+
+  <section class="section">
+    <!-- bookmark items will show here -->
+    <div id="bookmark-list"></div>
+  </section>
+
+  <section class="section">
+    <!-- pagination starts here -->
+    <nav class="pagination is-centered" role="navigation" aria-label="pagination">
+      <a id="pagination-previous" class="pagination-previous">Previous</a>
+      <a id="pagination-next" class="pagination-next">Next page</a>
+      <ul class="pagination-list"></ul>
+    </nav>
+  </section>
+
+  <footer class="footer">
+    <div class="content has-text-centered">
+      <p>
+        “Remember to bookmark your life as you do your web.” <strong>MarkMinder</strong> - because every great read
+        deserves a bookmark. Made by <a href="https://felicia-portfolio.netlify.app/">Felicia</a>.
+        © 2024
+      </p>
+    </div>
+  </footer>
+
+
 </main>
-<script src="js/app.js" type="module"></script>
+<script src="js/index.js" type="module"></script>
+<script src="js/pagination.js" type="module"></script>
+<script src="js/card.js" type="module"></script>
+<script src="js/form.js" type="module"></script>
+<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
