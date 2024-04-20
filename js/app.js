@@ -57,10 +57,8 @@ document.addEventListener('DOMContentLoaded', () => {
  */
 function initializeTheme() {
   const themeIcon = document.getElementById('theme-icon').querySelector('i');
-  const prefersDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-
-  document.documentElement.setAttribute('data-theme', prefersDarkMode ? 'dark' : 'light');
-  themeIcon.className = prefersDarkMode ? 'fas fa-sun' : 'fas fa-moon';
+  const defaultThemeDark = document.documentElement.getAttribute('data-theme')
+  themeIcon.className = defaultThemeDark ? 'fas fa-sun' : 'fas fa-moon';
 
   document.getElementById('theme-icon').addEventListener('click', toggleTheme);
 }

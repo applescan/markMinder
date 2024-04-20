@@ -32,7 +32,7 @@ function handleBookmarkSubmit(event) {
     console.error('Failed to save the last submitted bookmark:', error);
   }
   event.target.reset(); // Reset the form fields.
-  redirectTo('/result.html'); // Redirect to the results page.
+  redirectTo('markMinder/result'); // Redirect to the results page.
 }
 
 /**
