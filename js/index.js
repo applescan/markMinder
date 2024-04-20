@@ -54,7 +54,7 @@ export function loadCurrentPage(page) {
 
   if (filteredBookmarks.length === 0) {
     // Display a message if no bookmarks match the search or no bookmarks are stored
-    document.getElementById("bookmark-list").innerHTML = "<p>No bookmarks match your search.</p>";
+    document.getElementById("bookmark-list").innerHTML = "<p>No bookmarks</p>";
     updatePaginationLinks(1, 0); // Reset pagination
     return;
   }
