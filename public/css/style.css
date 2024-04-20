@@ -1,0 +1,181 @@
+@import url(https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css);
+
+/* Basic HTML element styling */
+html {
+  font-family: 'open sans', arial, sans-serif;
+  color: #222;
+  font-size: 1em;
+  line-height: 1.4;
+}
+
+/* Highlighting text selection for better visibility */
+::-moz-selection {
+  background: #b3d4fc;
+  text-shadow: none;
+}
+
+::selection {
+  background: #b3d4fc;
+  text-shadow: none;
+}
+
+/* Fullscreen fixed background for Lottie animations */
+.lottie-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  overflow: hidden;
+}
+
+/* Styling for the Lottie player to cover entire viewport and be slightly transparent */
+.lottie-player {
+  position: absolute;
+  min-width: 100%;
+  min-height: 100%;
+  width: 100vw;
+  height: 100vh;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(2.4);
+  opacity: 0.2;
+}
+
+/* Interactive dropdown items */
+.dropdown-item {
+  cursor: pointer;
+}
+
+/* Padding for content within the hero section */
+.hero-content {
+  padding: 6rem 3rem; 
+}
+
+/* Theming: Light and dark mode specific hover styles for dropdown items */
+html[data-theme="light"] .dropdown-item:hover {
+  background-color: var(--bulma-link-light);
+}
+
+html[data-theme="dark"] .dropdown-item:hover {
+  background-color: var(--bulma-link);
+}
+
+/* Styling for the bookmark list container */
+#bookmark-list {
+  min-height: 600px; 
+  overflow-y: auto; 
+}
+
+/* Vertical alignment for media elements */
+audio,
+canvas,
+iframe,
+img,
+svg,
+video {
+  vertical-align: middle;
+}
+
+/* Reset styles for fieldset elements */
+fieldset {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+/* Restrict textarea resizing to vertical only */
+textarea {
+  resize: vertical;
+}
+
+/* Helper classes for accessibility and visibility */
+.hidden,
+[hidden] {
+  display: none !important;
+}
+
+.visually-hidden {
+  border: 0;
+  clip: rect(0, 0, 0, 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  white-space: nowrap; /* Prevents content wrapping */
+}
+
+.visually-hidden.focusable:active,
+.visually-hidden.focusable:focus {
+  clip: auto;
+  height: auto;
+  margin: 0;
+  overflow: visible;
+  position: static;
+  white-space: inherit;
+  width: auto;
+}
+
+.invisible {
+  visibility: hidden;
+}
+
+/* Clearfix to contain floats */
+.clearfix::before,
+.clearfix::after {
+  content: "";
+  display: table;
+}
+
+.clearfix::after {
+  clear: both;
+}
+
+/* High resolution and print media styles */
+@media print,
+(-webkit-min-device-pixel-ratio: 1.25),
+(min-resolution: 1.25dppx),
+(min-resolution: 120dpi) {
+  * {
+    background: #fff !important;
+    color: #000 !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  a, a:visited {
+    text-decoration: underline;
+  }
+
+  a[href]::after {
+    content: " (" attr(href) ")";
+  }
+
+  abbr[title]::after {
+    content: " (" attr(title) ")";
+  }
+
+  a[href^="#"]::after,
+  a[href^="javascript:"]::after {
+    content: "";
+  }
+
+  pre, blockquote {
+    border: 1px solid #999;
+    page-break-inside: avoid;
+  }
+
+  tr, img {
+    page-break-inside: avoid;
+  }
+
+  h2, h3, p {
+    orphans: 3;
+    widows: 3;
+  }
+
+  h2, h3 {
+    page-break-after: avoid;
+  }
+}
