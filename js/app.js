@@ -4,47 +4,6 @@ import { loadCurrentPage } from './pagination.js';
 let currentPage = 1;
 export const bookmarks = JSON.parse(localStorage.getItem('bookmarks')) || [];
 export const recordsPerPage = 20;
-export const animalMasks = [
-  "Fox",
-  "Wolf",
-  "Bear",
-  "Owl",
-  "Hawk",
-  "Cat",
-  "Deer",
-  "Rabbit",
-  "Dragon",
-  "Snake",
-  "Tiger",
-  "Lion",
-  "Monkey",
-  "Elephant",
-  "Horse",
-  "Bat",
-  "Shark",
-  "Dolphin",
-  "Octopus",
-  "Butterfly",
-  "Spider",
-  "Rhinoceros",
-  "Hippopotamus",
-  "Giraffe",
-  "Koala",
-  "Kangaroo",
-  "Panda",
-  "Komodo Dragon",
-  "Chameleon",
-  "Axolotl",
-  "Narwhal",
-  "Mantis Shrimp",
-  "Seahorse",
-  "Platypus",
-  "Triceratops",
-  "Stegosaurus",
-  "Tyrannosaurus Rex",
-  "Brachiosaurus",
-  "Velociraptor"
-];
 
 // Set up initial page and event listeners on window load
 document.addEventListener('DOMContentLoaded', () => {

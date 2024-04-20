@@ -5,11 +5,6 @@ import { recordsPerPage, bookmarks, toggleTheme, animalMasks } from './app.js';
 let currentPage = 1; // Tracks the current page
 let currentSearchTerm = '';
 
-const demoData = Array.from({ length: 40 }, (_, i) => ({
-  name: `${animalMasks[i % animalMasks.length]} Mask`,
-  url: `https://en.wikipedia.org/wiki/Item_${i + 1}`,
-}));
-
 // Initialize pagination on page load
 window.onload = function () {
   // Retrieve pagination controls
