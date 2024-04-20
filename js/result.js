@@ -15,6 +15,6 @@ window.onload = () => {
 if (backButton) {
     backButton.addEventListener('click', () => {
         localStorage.setItem('lastSubmittedBookmark', JSON.stringify(''));
-        window.location.href = 'index.html';
+        window.location.href = '/';
     });
 }
