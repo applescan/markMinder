@@ -1,6 +1,6 @@
 import { updatePaginationLinks, nextPage, prevPage } from './pagination.js';
 import { renderCard } from './card.js';
-import { recordsPerPage, bookmarks, toggleTheme, animalMasks } from './app.js';
+import { recordsPerPage, bookmarks, toggleTheme } from './app.js';
 
 let currentPage = 1; // Tracks the current page
 let currentSearchTerm = '';
@@ -125,6 +125,7 @@ function orderBookmarks() {
  */
 function searchBookmarks() {
   const searchTerm = document.getElementById("search").value.trim().toLowerCase();
+  console.log(searchTerm);
   currentSearchTerm = searchTerm; // Update the current search term
 
   loadCurrentPage(1); // Reset to the first page after search
