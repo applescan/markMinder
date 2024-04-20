@@ -2,43 +2,57 @@
 <html lang="en">
 
 <head>
+  <!-- Meta information -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Mark-Minder - Your Bookmarking Companion</title>
   <link rel="stylesheet" href="css/style.css">
-  <meta name="description"
-    content="Mark-Minder helps you organize, save, and access your favorite web pages easily. 
+
+  <!-- Description for search engines -->
+  <meta name="description" content="Mark-Minder helps you organize, save, and access your favorite web pages easily. 
     Enhance your web browsing experience with structured bookmarking and personalized collections.">
 
-  <!-- Icons -->
+  <!-- Links to icons for various devices and favicon -->
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" href="/icon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="icon.png">
   <link rel="manifest" href="site.webmanifest">
   <meta name="theme-color" content="#fafafa">
+
+  <!-- External CSS for icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
 
 <body>
+  <!-- Main content area -->
   <main class="container">
+    <!-- Hero section for important content highlight -->
     <section class="hero is-fullheight-with-navbar has-text-centered">
       <div class="hero-body">
         <div class="container">
+          <!-- Title and subtitle for the bookmark added confirmation -->
           <p class="title">Bookmark added</p>
           <h2 class="subtitle">Thank you for adding the bookmark!</h2>
+
+          <!-- Lottie animation to enhance visual experience -->
           <div style="display: flex; justify-content: center; width: 100%;">
             <lottie-player src="https://lottie.host/08886fa3-0005-4d6a-92dd-c89a3a9490ab/Fb1yXTHAoa.json"
               background="transparent" speed="1" style="width: 300px; height: 300px;" loop autoplay></lottie-player>
           </div>
+
+          <!-- Placeholder for loading dynamic content -->
           <div id="submission" class="subtitle">Loading bookmark data...</div>
         </div>
       </div>
+
+      <!-- Navigation button -->
       <div class="hero-foot">
         <button class="button is-link" id="back">Back</button>
       </div>
     </section>
   </main>
 
+  <!-- External JS links -->
   <script src="js/app.js" type="module"></script>
   <script src="js/result.js" type="module"></script>
   <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
