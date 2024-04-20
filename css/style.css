@@ -1,5 +1,6 @@
 @import url(https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css);
 
+/* Basic HTML element styling */
 html {
   font-family: 'open sans', arial, sans-serif;
   color: #222;
@@ -7,10 +8,7 @@ html {
   line-height: 1.4;
 }
 
-/* .container {
-  padding: 4em 1em 2em;
-} */
-
+/* Highlighting text selection for better visibility */
 ::-moz-selection {
   background: #b3d4fc;
   text-shadow: none;
@@ -21,38 +19,40 @@ html {
   text-shadow: none;
 }
 
+/* Fullscreen fixed background for Lottie animations */
 .lottie-background {
   position: fixed;
-  /* Ensures the background covers the whole viewport */
   top: 0;
   left: 0;
   width: 100vw;
-  /* Full viewport width */
   height: 100vh;
-  /* Full viewport height */
   z-index: -1;
-  /* Keep it behind other content */
   overflow: hidden;
-  /* Prevents overflow */
 }
 
+/* Styling for the Lottie player to cover entire viewport and be slightly transparent */
 .lottie-player {
   position: absolute;
   min-width: 100%;
   min-height: 100%;
   width: 100vw;
   height: 100vh;
-  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%) scale(2.4);
-  /* Adjust scale to cover entire viewport */
-  opacity: 0.05;
+  opacity: 0.2;
 }
 
+/* Interactive dropdown items */
 .dropdown-item {
   cursor: pointer;
 }
 
+/* Padding for content within the hero section */
+.hero-content {
+  padding: 6rem 3rem; 
+}
+
+/* Theming: Light and dark mode specific hover styles for dropdown items */
 html[data-theme="light"] .dropdown-item:hover {
   background-color: var(--bulma-link-light);
 }
@@ -61,25 +61,13 @@ html[data-theme="dark"] .dropdown-item:hover {
   background-color: var(--bulma-link);
 }
 
-/*
- * A better looking default horizontal rule
- */
-
-hr {
-  display: block;
-  height: 1px;
-  border: 0;
-  border-top: 1px solid #ccc;
-  margin: 1em 0;
-  padding: 0;
+/* Styling for the bookmark list container */
+#bookmark-list {
+  min-height: 600px; 
+  overflow-y: auto; 
 }
 
-/*
- * Remove the gap between audio, canvas, iframes,
- * images, videos and the bottom of their containers:
- * https://github.com/h5bp/html5-boilerplate/issues/440
- */
-
+/* Vertical alignment for media elements */
 audio,
 canvas,
 iframe,
@@ -89,49 +77,23 @@ video {
   vertical-align: middle;
 }
 
-/*
- * Remove default fieldset styles.
- */
-
+/* Reset styles for fieldset elements */
 fieldset {
   border: 0;
   margin: 0;
   padding: 0;
 }
 
-/*
- * Allow only vertical resizing of textareas.
- */
-
+/* Restrict textarea resizing to vertical only */
 textarea {
   resize: vertical;
 }
 
-/* ==========================================================================
-   Author's custom styles
-   ========================================================================== */
-
-/* ==========================================================================
-   Helper classes
-   ========================================================================== */
-
-/*
- * Hide visually and from screen readers
- */
-
+/* Helper classes for accessibility and visibility */
 .hidden,
 [hidden] {
   display: none !important;
 }
-
-/*
- * Hide only visually, but have it available for screen readers:
- * https://snook.ca/archives/html_and_css/hiding-content-for-accessibility
- *
- * 1. For long content, line feeds are not interpreted as spaces and small width
- *    causes content to wrap 1 word per line:
- *    https://medium.com/@jessebeach/beware-smushed-off-screen-accessible-text-5952a4c2cbfe
- */
 
 .visually-hidden {
   border: 0;
@@ -141,16 +103,8 @@ textarea {
   overflow: hidden;
   padding: 0;
   position: absolute;
-  white-space: nowrap;
-  width: 1px;
-  /* 1 */
+  white-space: nowrap; /* Prevents content wrapping */
 }
-
-/*
- * Extends the .visually-hidden class to allow the element
- * to be focusable when navigated to via the keyboard:
- * https://www.drupal.org/node/897638
- */
 
 .visually-hidden.focusable:active,
 .visually-hidden.focusable:focus {
@@ -163,21 +117,11 @@ textarea {
   width: auto;
 }
 
-/*
- * Hide visually and from screen readers, but maintain layout
- */
-
 .invisible {
   visibility: hidden;
 }
 
-/*
- * Clearfix: contain floats
- *
- * The use of `table` rather than `block` is only necessary if using
- * `::before` to contain the top-margins of child elements.
- */
-
+/* Clearfix to contain floats */
 .clearfix::before,
 .clearfix::after {
   content: "";
@@ -188,43 +132,19 @@ textarea {
   clear: both;
 }
 
-/* ==========================================================================
-   EXAMPLE Media Queries for Responsive Design.
-   These examples override the primary ('mobile first') styles.
-   Modify as content requires.
-   ========================================================================== */
-
-@media only screen and (min-width: 35em) {
-  /* Style adjustments for viewports that meet the condition */
-}
-
+/* High resolution and print media styles */
 @media print,
 (-webkit-min-device-pixel-ratio: 1.25),
 (min-resolution: 1.25dppx),
 (min-resolution: 120dpi) {
-  /* Style adjustments for high resolution devices */
-}
-
-/* ==========================================================================
-   Print styles.
-   Inlined to avoid the additional HTTP request:
-   https://www.phpied.com/delay-loading-your-print-css/
-   ========================================================================== */
-
-@media print {
-
-  *,
-  *::before,
-  *::after {
+  * {
     background: #fff !important;
     color: #000 !important;
-    /* Black prints faster */
     box-shadow: none !important;
     text-shadow: none !important;
   }
 
-  a,
-  a:visited {
+  a, a:visited {
     text-decoration: underline;
   }
 
@@ -236,39 +156,26 @@ textarea {
     content: " (" attr(title) ")";
   }
 
-  /*
-   * Don't show links that are fragment identifiers,
-   * or use the `javascript:` pseudo protocol
-   */
   a[href^="#"]::after,
   a[href^="javascript:"]::after {
     content: "";
   }
 
-  pre {
-    white-space: pre-wrap !important;
-  }
-
-  pre,
-  blockquote {
+  pre, blockquote {
     border: 1px solid #999;
     page-break-inside: avoid;
   }
 
-  tr,
-  img {
+  tr, img {
     page-break-inside: avoid;
   }
 
-  p,
-  h2,
-  h3 {
+  h2, h3, p {
     orphans: 3;
     widows: 3;
   }
 
-  h2,
-  h3 {
+  h2, h3 {
     page-break-after: avoid;
   }
 }

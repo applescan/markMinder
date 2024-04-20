@@ -1,10 +1,11 @@
-import { refreshDisplay } from './app.js';
+import { refreshDisplay, bookmarks } from './app.js';
 
 /**
  * Sets up the bookmark form submission handler when the document is fully loaded.
  */
 document.addEventListener('DOMContentLoaded', () => {
-  document.getElementById('bookmark-form').addEventListener('submit', handleBookmarkSubmit);
+  const form = document.getElementById('bookmark-form');
+  form.addEventListener('submit', handleBookmarkSubmit);
 });
 
 /**
@@ -12,21 +13,26 @@ document.addEventListener('DOMContentLoaded', () => {
  * @param {Event} event - The form submission event.
  */
 function handleBookmarkSubmit(event) {
-  event.preventDefault();  // Prevent default form submission behavior.
+  event.preventDefault(); // Prevent default form submission behavior.
 
+  //remove whitespace from form value
   const bookmarkName = event.target.bookmarkName.value.trim();
   const bookmarkUrl = event.target.bookmarkUrl.value.trim();
 
   if (!bookmarkName || !isValidUrl(bookmarkUrl)) {
-    alert('Please enter a valid URL.');
+    alert('Please enter a valid name and URL.');
     return;
   }
 
   const bookmark = { name: bookmarkName, url: bookmarkUrl };
   saveBookmark(bookmark);
-  localStorage.setItem('lastSubmittedBookmark', JSON.stringify(bookmark));
-  event.target.reset();  // Reset the form fields.
-  window.location.href = '/result.html';  // Redirect to the results page.
+  try {
+    localStorage.setItem('lastSubmittedBookmark', JSON.stringify(bookmark));
+  } catch (error) {
+    console.error('Failed to save the last submitted bookmark:', error);
+  }
+  event.target.reset(); // Reset the form fields.
+  redirectTo('/result.html'); // Redirect to the results page.
 }
 
 /**
@@ -49,6 +55,18 @@ function isValidUrl(url) {
  */
 function saveBookmark(bookmark) {
   bookmarks.push(bookmark);
-  localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+  try {
+    localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+  } catch (error) {
+    console.error('Failed to save bookmarks:', error);
+  }
   refreshDisplay();
+}
+
+/**
+ * Redirects to a specified URL.
+ * @param {string} url - The URL to redirect to.
+ */
+function redirectTo(url) {
+  window.location.href = url;
 }

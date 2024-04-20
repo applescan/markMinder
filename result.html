@@ -1,49 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Mark-Minder - Your Bookmarking Companion</title>
-<link rel="stylesheet" href="css/style.css">
-<meta name="description"
-  content="Mark-Minder helps you organize, save, and access your favorite web pages easily. Enhance your web browsing experience with structured bookmarking and personalized collections.">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mark-Minder - Your Bookmarking Companion</title>
+  <link rel="stylesheet" href="css/style.css">
+  <meta name="description"
+    content="Mark-Minder helps you organize, save, and access your favorite web pages easily. 
+    Enhance your web browsing experience with structured bookmarking and personalized collections.">
 
-<!-- Open Graph / Facebook -->
-<meta property="og:title" content="Mark-Minder - Organize Your Bookmarks">
-<meta property="og:type" content="website">
-<meta property="og:url" content="http://www.markminder.com">
-<meta property="og:image" content="http://www.markminder.com/image.jpg">
-<meta property="og:image:alt" content="Screenshot of the Mark-Minder app interface">
+  <!-- Icons -->
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icon.png">
+  <link rel="manifest" href="site.webmanifest">
+  <meta name="theme-color" content="#fafafa">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
 
-<!-- Icons -->
-<link rel="icon" href="/favicon.ico" sizes="any">
-<link rel="icon" href="/icon.svg" type="image/svg+xml">
-<link rel="apple-touch-icon" href="icon.png">
-<link rel="manifest" href="site.webmanifest">
-<meta name="theme-color" content="#fafafa">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-
-<!-- Site or application content -->
-<main class="container">
-  <section class="hero is-fullheight-with-navbar has-text-centered">
-    <div class="hero-body">
-      <div class="container">
-        <p class="title">Bookmark added</p>
-        <h2 class="subtitle">Thank you for adding the bookmark!</h2>
-        <div style="display: flex; justify-content: center; width: 100%;">
-          <lottie-player src="https://lottie.host/08886fa3-0005-4d6a-92dd-c89a3a9490ab/Fb1yXTHAoa.json"
-            background="transparent" speed="1" style="width: 300px; height: 300px;" loop autoplay></lottie-player>
+<body>
+  <main class="container">
+    <section class="hero is-fullheight-with-navbar has-text-centered">
+      <div class="hero-body">
+        <div class="container">
+          <p class="title">Bookmark added</p>
+          <h2 class="subtitle">Thank you for adding the bookmark!</h2>
+          <div style="display: flex; justify-content: center; width: 100%;">
+            <lottie-player src="https://lottie.host/08886fa3-0005-4d6a-92dd-c89a3a9490ab/Fb1yXTHAoa.json"
+              background="transparent" speed="1" style="width: 300px; height: 300px;" loop autoplay></lottie-player>
+          </div>
+          <div id="submission" class="subtitle">Loading bookmark data...</div>
         </div>
-        <div id="submission" class="subtitle">Loading bookmark data...</div>
       </div>
-    </div>
-    <div class="hero-foot">
-      <button class="button is-link" id="back">Back</button>
-    </div>
-  </section>
-</main>
+      <div class="hero-foot">
+        <button class="button is-link" id="back">Back</button>
+      </div>
+    </section>
+  </main>
 
-<script src="js/result.js" type="module"></script>
-<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+  <script src="js/app.js" type="module"></script>
+  <script src="js/result.js" type="module"></script>
+  <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+</body>
 
 </html>

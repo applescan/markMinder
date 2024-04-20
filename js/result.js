@@ -1,19 +1,20 @@
-const submissionElement = document.getElementById("submission");
+const submissionElement = document.getElementById('submission');
+const backButton = document.querySelector('#back');
 
-window.onload = function () {
+// Handle page load events
+window.onload = () => {
     const lastSubmittedBookmark = JSON.parse(localStorage.getItem('lastSubmittedBookmark'));
-
     if (lastSubmittedBookmark) {
-        submissionElement.innerHTML = `Bookmark Name: ${lastSubmittedBookmark.name}, URL: <a href="${lastSubmittedBookmark.url}" target="_blank">${lastSubmittedBookmark.url}</a>`;
+        submissionElement.innerHTML = `Bookmark Name: ${lastSubmittedBookmark.name} <br> URL: <a href="${lastSubmittedBookmark.url}" target="_blank">${lastSubmittedBookmark.url}</a>`;
     } else {
-        submissionElement.innerHTML = "No bookmark data provided.";
+        submissionElement.innerHTML = 'No bookmark data provided.';
     }
 };
 
-const back_btn = document.querySelector('#back');
-
-// Attach event listeners to buttons
-back_btn.addEventListener('click', function () {
-    localStorage.setItem('lastSubmittedBookmark', JSON.stringify(""));
-    window.location.href = 'index.html'
-});
+// Attach event listeners if elements exist
+if (backButton) {
+    backButton.addEventListener('click', () => {
+        localStorage.setItem('lastSubmittedBookmark', JSON.stringify(''));
+        window.location.href = 'index.html';
+    });
+}

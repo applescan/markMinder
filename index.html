@@ -1,190 +1,177 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en">
 
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Mark-Minder - Your Bookmarking Companion</title>
-<link rel="stylesheet" href="css/style.css">
-<meta name="description"
-  content="Mark-Minder helps you organize, save, and access your favorite web pages easily. Enhance your web browsing experience with structured bookmarking and personalized collections.">
+<head>
+  <!-- Meta tags and title -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mark-Minder - Your Bookmarking Companion</title>
 
-<!-- Open Graph / Facebook -->
-<meta property="og:title" content="Mark-Minder - Organize Your Bookmarks">
-<meta property="og:type" content="website">
-<meta property="og:url" content="http://www.markminder.com">
-<meta property="og:image" content="http://www.markminder.com/image.jpg">
-<meta property="og:image:alt" content="Screenshot of the Mark-Minder app interface">
+  <!-- External and internal CSS links -->
+  <link rel="stylesheet" href="css/style.css">
 
-<!-- Icons -->
-<link rel="icon" href="/favicon.ico" sizes="any">
-<link rel="icon" href="/icon.svg" type="image/svg+xml">
-<link rel="apple-touch-icon" href="icon.png">
-<link rel="manifest" href="site.webmanifest">
-<meta name="theme-color" content="#fafafa">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <!-- SEO metadata -->
+  <meta name="description"
+    content="Mark-Minder helps you organize, save, and access your favorite web pages easily. 
+    Enhance your web browsing experience with structured bookmarking and personalized collections.">
 
-<!-- Site or application content -->
-<main class="container">
+  <!-- Icon links for different devices and purposes -->
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icon.png">
+  <link rel="manifest" href="site.webmanifest">
+  <meta name="theme-color" content="#fafafa">
 
-  <div id="bg-lottie-light" class="lottie-background">
-    <lottie-player class="lottie-player" src="https://lottie.host/db6af45c-e70a-43fa-83bd-a149cca1ead0/HxzIZxmhOK.json"
-      background="transparent" speed="0.4" loop autoplay>
-    </lottie-player>
-  </div>
-  <div id="bg-lottie-dark" class="lottie-background" style="display: none;">
-    <lottie-player class="lottie-player" src="https://lottie.host/778fdac5-18bb-4f5b-9425-58f8dc193421/rzqj1EY8XJ.json"
-      background="transparent" speed="0.4" loop autoplay>
-    </lottie-player>
-  </div>
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
 
+<body>
+  <main class="container">
+    <!-- Section for animated background -->
+    <div class="lottie-background">
+      <lottie-player class="lottie-player"
+        src="https://lottie.host/0bed09f8-9ed3-4a80-abf0-9d81b0c4c31a/5dsg0zAJbT.json" background="transparent"
+        speed="0.7" loop autoplay></lottie-player>
+    </div>
 
-  <section class="hero">
-    <div class="hero-body">
+    <!-- Hero section with title, subtitle and form -->
+    <section class="hero is-medium">
+      <div class="hero-content">
+        <!-- Theme toggle button -->
+        <div class="is-pulled-right">
+          <button id="theme-toggle" class="button is-light">
+            <span id="theme-icon" class="icon">
+              <i class="fas fa-adjust"></i>
+            </span>
+          </button>
+        </div>
 
-      <div class="is-pulled-right">
-        <button id="theme-toggle" class="button is-light">
-          <span id="theme-icon" class="icon">
-            <i class="fas fa-sun"></i> <!-- Default icon for dark mode -->
-          </span>
-        </button>
+        <p class="title">MarkMinder</p>
+        <h2 class="subtitle">Welcome to Mark-Minder, your ultimate tool for managing web bookmarks. Organize your online
+          resources with ease and efficiency.</h2>
+
+        <!-- Bookmark form for adding new bookmarks -->
+        <form id="bookmark-form">
+          <div class="field is-grouped">
+            <p class="control is-expanded has-icons-left">
+              <input class="input" type="text" placeholder="Bookmark name" name="bookmarkName">
+              <span class="icon is-small is-left">
+                <i class="fas fa-bookmark"></i>
+              </span>
+            </p>
+            <p class="control is-expanded has-icons-left">
+              <input class="input" type="url" placeholder="URL" name="bookmarkUrl">
+              <span class="icon is-small is-left">
+                <i class="fas fa-link"></i>
+              </span>
+            </p>
+            <p class="control">
+              <button class="button is-link" type="submit">Bookmark</button>
+            </p>
+          </div>
+        </form>
+
+        <!-- Sorting and searching controls -->
+        <div class="columns is-vcentered is-gapless">
+          <div class="column is-narrow">
+            <div class="dropdown is-hoverable py-2">
+              <div class="dropdown-trigger">
+                <button class="button" aria-haspopup="true" aria-controls="dropdown-menu">
+                  <span>Sorting and Order</span>
+                  <span class="icon is-small">
+                    <i class="fas fa-angle-down" aria-hidden="true"></i>
+                  </span>
+                </button>
+              </div>
+              <div class="dropdown-menu" id="dropdown-menu" role="menu">
+                <div class="dropdown-content">
+                  <div class="dropdown-item" id="order">
+                    <p class="order_text">Order by latest to earliest</p>
+                  </div>
+                  <div class="dropdown-item" id="sort_a_z">
+                    <p>Sort Alphabetically A-Z</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="column is-narrow ml-3">
+            <div class="control has-icons-left">
+              <input class="input" type="text" placeholder="Search" name="search" id="search">
+              <span class="icon is-small is-left">
+                <i class="fas fa-search"></i>
+              </span>
+            </div>
+          </div>
+        </div>
       </div>
+    </section>
 
-      <p class="title">Mark-Minder</p>
-      <h2 class="subtitle">Welcome to Mark-Minder, your ultimate tool for managing web bookmarks. Organize your online
-        resources with ease and efficiency.</h2>
-
-      <form id="bookmark-form">
-        <!-- need to work on custom validation  -->
-        <div class="field">
-          <p class="control has-icons-left has-icons-right">
-            <input class="input" type="text" placeholder="Bookmark name" name="bookmarkName" required>
-            <span class="icon is-small is-left">
-              <i class="fas fa-bookmark"></i>
-            </span>
-          </p>
+    <!-- Template for dynamically created bookmark cards -->
+    <template id="card-template">
+      <article class="media">
+        <figure class="media-left">
+          <div class="icon is-large has-text-link-on-scheme">
+            <i class="fa-duotone fa-bookmark fas fa-3x"></i>
+          </div>
+        </figure>
+        <div class="media-content">
+          <div class="content">
+            <h6 class="title is-6"></h6>
+            <a class="url" href="#" target="_blank"></a>
+          </div>
         </div>
-        <div class="field">
-          <p class="control has-icons-left">
-            <input class="input" type="url" placeholder="URL" name="bookmarkUrl" required>
-            <span class="icon is-small is-left">
-              <i class="fas fa-link"></i>
-            </span>
-          </p>
-        </div>
-        <div class="field">
-          <p class="control">
-            <button class="button is-success" type="submit">
-              Bookmark
+        <div class="media-right">
+          <div class="buttons">
+            <button class="button is-link" id="edit">
+              <span class="icon is-small">
+                <i class="fa-solid fa-pen-to-square fas"></i>
+              </span>
             </button>
-          </p>
-        </div>
-      </form>
-
-  </section>
-
-  <section class="section">
-
-      <!-- <p class="control has-icons-left has-icons-right">
-        <input class="input" type="text" placeholder="Search" name="search" id="search">
-        <span class="icon is-small is-left">
-          <i class="fas fa-search"></i>
-        </span>
-      </p> -->
-
-    <!-- add sorting option from latest to earliest date, a-b or b-a  -->
-    <div class="dropdown is-hoverable">
-      <div class="dropdown-trigger">
-        <button class="button" aria-haspopup="true" aria-controls="dropdown-menu">
-          <span>Sorting and Order</span>
-          <span class="icon is-small">
-            <i class="fas fa-angle-down" aria-hidden="true"></i>
-          </span>
-        </button>
-      </div>
-      <div class="dropdown-menu" id="dropdown-menu" role="menu">
-        <div class="dropdown-content">
-          <div class="dropdown-item" id="sort_a_z">
-            <p>
-              Sort Alphabetically<strong> A-Z</strong>
-            </p>
-          </div>
-          <div class="dropdown-item" id="sort_z_a">
-            <p>
-              Sort Alphabetically<strong> Z-A</strong>
-            </p>
-          </div>
-          <div class="dropdown-item" id="order">
-            <p class="order_text">
-              Order by latest to earliest
-            </p>
+            <button class="button is-danger" id="delete">
+              <span class="icon is-small">
+                <i class="fa-solid fa-trash-can fas"></i>
+              </span>
+            </button>
           </div>
         </div>
+      </article>
+    </template>
+
+    <!-- Section to display bookmarks -->
+    <section class="section py-2">
+      <div id="bookmark-list"></div>
+    </section>
+
+    <!-- Pagination controls -->
+    <section class="section">
+      <nav class="pagination is-centered" role="navigation" aria-label="pagination">
+        <a id="pagination-previous" class="pagination-previous">Previous</a>
+        <a id="pagination-next" class="pagination-next">Next page</a>
+        <ul class="pagination-list"></ul>
+      </nav>
+    </section>
+
+    <!-- Footer with quote and copyright -->
+    <footer class="footer">
+      <div class="content has-text-centered">
+        <p>
+          “Remember to bookmark your life as you do your web.” <strong>MarkMinder</strong> - because every great read
+          deserves a bookmark. Made by <a href="https://felicia-portfolio.netlify.app/">Felicia</a>.
+          © 2024
+        </p>
       </div>
-    </div>
+    </footer>
+  </main>
 
+  <!-- External JS links -->
+  <script src="js/app.js" type="module"></script>
+  <script src="js/index.js" type="module"></script>
+  <script src="js/pagination.js" type="module"></script>
+  <script src="js/card.js" type="module"></script>
+  <script src="js/form.js" type="module"></script>
+  <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+</body>
 
-
-  </section>
-
-  <!-- //template card for the links  -->
-  <template id="card-template">
-    <article class="media">
-      <figure class="media-left">
-        <div class="icon is-large has-text-link-on-scheme">
-          <i class="fa-duotone fa-bookmark fas fa-3x"></i>
-        </div>
-      </figure>
-      <div class="media-content">
-        <div class="content">
-          <h6 class="title is-6"></h6>
-          <a class="url" href="#" target="_blank"></a>
-        </div>
-      </div>
-      <div class="media-right">
-        <div class="buttons">
-          <button class="button is-link" id="edit">
-            <span class="icon is-small">
-              <i class="fa-solid fa-pen-to-square fas"></i>
-            </span>
-          </button>
-          <button class="button is-danger" id="delete">
-            <span class="icon is-small">
-              <i class="fa-solid fa-trash-can fas"></i>
-            </span>
-          </button>
-        </div>
-      </div>
-    </article>
-  </template>
-
-  <section class="section">
-    <!-- bookmark items will show here -->
-    <div id="bookmark-list"></div>
-  </section>
-
-  <section class="section">
-    <!-- pagination starts here -->
-    <nav class="pagination is-centered" role="navigation" aria-label="pagination">
-      <a id="pagination-previous" class="pagination-previous">Previous</a>
-      <a id="pagination-next" class="pagination-next">Next page</a>
-      <ul class="pagination-list"></ul>
-    </nav>
-  </section>
-
-  <footer class="footer">
-    <div class="content has-text-centered">
-      <p>
-        “Remember to bookmark your life as you do your web.” <strong>MarkMinder</strong> - because every great read
-        deserves a bookmark. Made by <a href="https://felicia-portfolio.netlify.app/">Felicia</a>.
-        © 2024
-      </p>
-    </div>
-  </footer>
-
-
-</main>
-<script src="js/index.js" type="module"></script>
-<script src="js/pagination.js" type="module"></script>
-<script src="js/card.js" type="module"></script>
-<script src="js/form.js" type="module"></script>
-<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+</html>

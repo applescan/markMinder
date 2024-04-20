@@ -1,4 +1,4 @@
-import { refreshDisplay } from './app.js';
+import { refreshDisplay, bookmarks } from './app.js';
 
 /**
  * Adds a card element to the DOM for each bookmark.

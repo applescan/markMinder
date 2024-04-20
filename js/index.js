@@ -1,7 +1,14 @@
-import { updatePaginationLinks, nextPage, prevPage, numPages } from './pagination.js';
+import { updatePaginationLinks, nextPage, prevPage } from './pagination.js';
 import { renderCard } from './card.js';
-import { recordsPerPage, bookmarks } from './app.js';
+import { recordsPerPage, bookmarks, toggleTheme, animalMasks } from './app.js';
 
+let currentPage = 1; // Tracks the current page
+let currentSearchTerm = '';
+
+const demoData = Array.from({ length: 40 }, (_, i) => ({
+  name: `${animalMasks[i % animalMasks.length]} Mask`,
+  url: `https://en.wikipedia.org/wiki/Item_${i + 1}`,
+}));
 
 // Initialize pagination on page load
 window.onload = function () {
@@ -14,99 +21,116 @@ window.onload = function () {
     nextButton.addEventListener("click", nextPage);
     prevButton.addEventListener("click", prevPage);
   }
+  //localStorage.setItem('bookmarks', JSON.stringify(demoData));
 
   // Load the initial page
   loadCurrentPage(currentPage);
 };
 
-
-// Attach event listeners
-document.getElementById('sort_a_z').addEventListener("click", function () {
-  sort_bookmarks('asc');
+// Attach event listeners for sorting, search and ordering bookmarks
+document.getElementById('sort_a_z').addEventListener('click', () => {
+  const currentOrder = window.currentSortOrder || 'asc';
+  sortBookmarks(currentOrder);
 });
+document.getElementById('order').addEventListener('click', orderBookmarks);
+document.getElementById("search").addEventListener("input", searchBookmarks);
 
-document.getElementById('sort_z_a').addEventListener("click", function () {
-  sort_bookmarks('desc');
-});
-
-document.getElementById('order').addEventListener("click", function () {
-  order_bookmarks()
-});
-
-
-document.getElementById('theme-toggle').addEventListener('click', function () {
-  const currentTheme = document.documentElement.getAttribute('data-theme');
-  const themeIcon = document.getElementById('theme-icon').querySelector('i'); // More reliable selector
-  const bgLottieLight = document.getElementById('bg-lottie-light');
-  const bgLottieDark = document.getElementById('bg-lottie-dark');
-  if (currentTheme === 'dark') {
-    document.documentElement.setAttribute('data-theme', 'light');
-    bgLottieDark.style.display = 'none';
-    bgLottieLight.style.display = 'block';
-    themeIcon.className = 'fas fa-sun';
-  } else {
-    document.documentElement.setAttribute('data-theme', 'dark');
-    bgLottieLight.style.display = 'none';
-    bgLottieDark.style.display = 'block';
-    themeIcon.className = 'fas fa-moon';
-  }
-});
+// Toggle theme between light and dark
+document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
 
 /**
  * Loads bookmarks for the current page and updates pagination.
  * @param {number} page - The current page number.
  */
 export function loadCurrentPage(page) {
-  if (bookmarks.length === 0) {
-    document.getElementById("bookmark-list").innerHTML = "<p>No bookmarks stored.</p>";
+  let filteredBookmarks = bookmarks;
+
+  // Filter bookmarks based on the current search term, if any
+  if (currentSearchTerm) {
+    filteredBookmarks = bookmarks.filter(bookmark =>
+      bookmark.name.toLowerCase().includes(currentSearchTerm)
+    );
+  }
+
+  if (filteredBookmarks.length === 0) {
+    // Display a message if no bookmarks match the search or no bookmarks are stored
+    document.getElementById("bookmark-list").innerHTML = "<p>No bookmarks match your search.</p>";
     updatePaginationLinks(1, 0); // Reset pagination
     return;
   }
 
+  // Pagination bounds check
+  const numPages = Math.ceil(filteredBookmarks.length / recordsPerPage);
   if (page < 1) page = 1;
-  else if (page > numPages(bookmarks.length)) page = numPages(bookmarks.length);
+  else if (page > numPages) page = numPages;
 
   currentPage = page; // Update the current page
 
-  const bookmark_list = document.getElementById("bookmark-list");
-  bookmark_list.innerHTML = ""; // Clear previous entries
+  const bookmarkList = document.getElementById("bookmark-list");
+  bookmarkList.innerHTML = ""; // Clear previous entries
 
   let start = (currentPage - 1) * recordsPerPage;
-  let end = Math.min(start + recordsPerPage, bookmarks.length); // Ensure not to exceed array
+  let end = Math.min(start + recordsPerPage, filteredBookmarks.length);
 
+  // Render bookmarks for the current page
   for (let i = start; i < end; i++) {
-    const card = renderCard(bookmarks[i].name, bookmarks[i].url, i);
-    bookmark_list.appendChild(card);
+    const card = renderCard(filteredBookmarks[i].name, filteredBookmarks[i].url, i);
+    bookmarkList.appendChild(card);
   }
 
-  updatePaginationLinks(currentPage, bookmarks.length);
+  updatePaginationLinks(currentPage, filteredBookmarks.length);
 }
 
 
-// Function to sort bookmarks based on the specified order
-function sort_bookmarks(order) {
-  bookmarks.sort((a, b) => {
-    const nameA = a.name.toUpperCase(); // normalize case
-    const nameB = b.name.toUpperCase(); // normalize case
-    if (nameA < nameB) {
-      return order === 'asc' ? -1 : 1;
-    }
-    if (nameA > nameB) {
-      return order === 'asc' ? 1 : -1;
-    }
-    return 0; // names must be equal
-  });
-  loadCurrentPage(currentPage); // reload the current page with the sorted bookmarks
-}
-
-function order_bookmarks() {
-  bookmarks.reverse()
-  const order_text = document.querySelector(".order_text");
-  if (order_text.innerHTML === 'Order by earliest to latest') {
-    order_text.innerHTML = 'Order by latest to earliest'
+/**
+ * Function to sort bookmarks based on the specified order
+ * @param {string} order - Will be passed as 'asc' or 'dsc'.
+ */
+function sortBookmarks(order) {
+  // Update the button text based on the passed order
+  const sortText = document.getElementById("sort_a_z");
+  if (order === 'asc') {
+    sortText.innerHTML = 'Sort Alphabetically Z-A'; 
+    window.currentSortOrder = 'desc';
   } else {
-    order_text.innerHTML = 'Order by earliest to latest';
+    sortText.innerHTML = 'Sort Alphabetically A-Z';
+    window.currentSortOrder = 'asc';
   }
-  loadCurrentPage(currentPage); // reload the current page with the sorted bookmarks
+
+  // Sort the bookmarks array
+  bookmarks.sort((a, b) => {
+    const nameA = a.name.toUpperCase();
+    const nameB = b.name.toUpperCase();
+
+    if (order === 'asc') {
+      return nameA.localeCompare(nameB);
+    } else {
+      return nameB.localeCompare(nameA);
+    }
+  });
+
+  // Reload the current page with the sorted bookmarks
+  loadCurrentPage(currentPage);
 }
 
+// Function to reverse the order of bookmarks
+function orderBookmarks() {
+  bookmarks.reverse();
+  const orderText = document.querySelector(".order_text");
+  if (orderText.innerHTML === 'Order by earliest to latest') {
+    orderText.innerHTML = 'Order by latest to earliest';
+  } else {
+    orderText.innerHTML = 'Order by earliest to latest';
+  }
+  loadCurrentPage(currentPage); // Reload the current page with the sorted bookmarks
+}
+
+/**
+ * Function to filter and display bookmarks based on the search term.
+ */
+function searchBookmarks() {
+  const searchTerm = document.getElementById("search").value.trim().toLowerCase();
+  currentSearchTerm = searchTerm; // Update the current search term
+
+  loadCurrentPage(1); // Reset to the first page after search
+}
