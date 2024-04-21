@@ -8,7 +8,6 @@ export const recordsPerPage = 20;
 // Set up initial page and event listeners on window load
 document.addEventListener('DOMContentLoaded', () => {
   initializeTheme();
-  refreshDisplay();
 });
 
 /**
