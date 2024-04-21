@@ -1,29 +1,18 @@
-import { updatePaginationLinks, nextPage, prevPage } from './pagination.js';
+import { updatePaginationLinks, numPages, setupPaginationControls } from './pagination.js';
 import { renderCard } from './card.js';
-import { recordsPerPage, bookmarks, toggleTheme } from './app.js';
+import { recordsPerPage, bookmarks, toggleTheme, refreshDisplay } from './app.js';
 
-let currentPage = 1; // Tracks the current page
+let currentPage = 1;
 let currentSearchTerm = '';
 
-// Initialize pagination on page load
-window.onload = function () {
-  // Retrieve pagination controls
-  const nextButton = document.getElementById("pagination-next");
-  const prevButton = document.getElementById("pagination-previous");
-
-  // Setup pagination event listeners if elements exist
-  if (nextButton && prevButton) {
-    nextButton.addEventListener("click", nextPage);
-    prevButton.addEventListener("click", prevPage);
-  }
-  //localStorage.setItem('bookmarks', JSON.stringify(demoData));
-
-  // Load the initial page
-  loadCurrentPage(currentPage);
+// Initialize pagination controls and load initial page on window load
+window.onload = () => {
+  setupPaginationControls();
+  refreshDisplay()
 };
 
 // Attach event listeners for sorting, search and ordering bookmarks
-document.getElementById('sort_a_z').addEventListener('click', () => {
+document.getElementById('sort-a-z').addEventListener('click', () => {
   const currentOrder = window.currentSortOrder || 'asc';
   sortBookmarks(currentOrder);
 });
@@ -34,10 +23,11 @@ document.getElementById("search").addEventListener("input", searchBookmarks);
 document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
 
 /**
- * Loads bookmarks for the current page and updates pagination.
- * @param {number} page - The current page number.
+ * Loads the bookmarks for the specified page.
+ * @param {number} page - The page number to load.
  */
 export function loadCurrentPage(page) {
+
   let filteredBookmarks = bookmarks;
 
   // Filter bookmarks based on the current search term, if any
@@ -54,28 +44,28 @@ export function loadCurrentPage(page) {
     return;
   }
 
-  // Pagination bounds check
-  const numPages = Math.ceil(filteredBookmarks.length / recordsPerPage);
+  // Ensure page is within bounds
   if (page < 1) page = 1;
-  else if (page > numPages) page = numPages;
+  else if (page > numPages(bookmarks.length)) page = numPages(bookmarks.length);
 
   currentPage = page; // Update the current page
 
-  const bookmarkList = document.getElementById("bookmark-list");
-  bookmarkList.innerHTML = ""; // Clear previous entries
+  const bookmarkList = document.getElementById('bookmark-list');
+  bookmarkList.innerHTML = ''; // Clear previous entries
 
-  let start = (currentPage - 1) * recordsPerPage;
-  let end = Math.min(start + recordsPerPage, filteredBookmarks.length);
+  const start = (currentPage - 1) * recordsPerPage;
+  const end = Math.min(start + recordsPerPage, bookmarks.length); // Ensure not to exceed array
 
   // Render bookmarks for the current page
   for (let i = start; i < end; i++) {
-    const card = renderCard(filteredBookmarks[i].name, filteredBookmarks[i].url, i);
-    bookmarkList.appendChild(card);
+    if (filteredBookmarks[i]) { // Check if the bookmark is defined
+      const card = renderCard(filteredBookmarks[i].name, filteredBookmarks[i].url, filteredBookmarks[i].id);
+      bookmarkList.appendChild(card);
+    }
   }
 
   updatePaginationLinks(currentPage, filteredBookmarks.length);
 }
-
 
 /**
  * Function to sort bookmarks based on the specified order
@@ -83,9 +73,9 @@ export function loadCurrentPage(page) {
  */
 function sortBookmarks(order) {
   // Update the button text based on the passed order
-  const sortText = document.getElementById("sort_a_z");
+  const sortText = document.getElementById("sort-a-z");
   if (order === 'asc') {
-    sortText.innerHTML = 'Sort Alphabetically Z-A'; 
+    sortText.innerHTML = 'Sort Alphabetically Z-A';
     window.currentSortOrder = 'desc';
   } else {
     sortText.innerHTML = 'Sort Alphabetically A-Z';
@@ -98,15 +88,16 @@ function sortBookmarks(order) {
     const nameB = b.name.toUpperCase();
 
     if (order === 'asc') {
-      return nameA.localeCompare(nameB);
+      return nameA > nameB ? 1 : nameB > nameA ? -1 : 0;
     } else {
-      return nameB.localeCompare(nameA);
+      return nameA > nameB ? -1 : nameB > nameA ? 1 : 0;
     }
   });
 
   // Reload the current page with the sorted bookmarks
-  loadCurrentPage(currentPage);
+  refreshDisplay()
 }
+
 
 // Function to reverse the order of bookmarks
 function orderBookmarks() {
@@ -117,7 +108,7 @@ function orderBookmarks() {
   } else {
     orderText.innerHTML = 'Order by earliest to latest';
   }
-  loadCurrentPage(currentPage); // Reload the current page with the sorted bookmarks
+  refreshDisplay() // Reload the current page with the sorted bookmarks
 }
 
 /**
@@ -125,8 +116,6 @@ function orderBookmarks() {
  */
 function searchBookmarks() {
   const searchTerm = document.getElementById("search").value.trim().toLowerCase();
-  console.log(searchTerm);
   currentSearchTerm = searchTerm; // Update the current search term
-
-  loadCurrentPage(1); // Reset to the first page after search
+  refreshDisplay() // Reset to the first page after search
 }

@@ -24,7 +24,7 @@ function handleBookmarkSubmit(event) {
     return;
   }
 
-  const bookmark = { name: bookmarkName, url: bookmarkUrl };
+  const bookmark = { id: Date.now(), name: bookmarkName, url: bookmarkUrl };
   saveBookmark(bookmark);
   try {
     localStorage.setItem('lastSubmittedBookmark', JSON.stringify(bookmark));
@@ -40,7 +40,7 @@ function handleBookmarkSubmit(event) {
  * @param {string} url - The URL to validate.
  * @return {boolean} - True if the URL is valid, false otherwise.
  */
-function isValidUrl(url) {
+export function isValidUrl(url) {
   try {
     new URL(url);
     return true;

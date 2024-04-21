@@ -1,4 +1,4 @@
-import { loadCurrentPage } from './pagination.js';
+import { loadCurrentPage } from './index.js';
 
 // Default constants and state variables
 let currentPage = 1;

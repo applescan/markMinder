@@ -1,7 +1,7 @@
-import { renderCard } from './card.js';
+import { loadCurrentPage } from './index.js';
 import { recordsPerPage, bookmarks } from './app.js';
 
-let currentPage = 1; // Tracks the current page
+let currentPage = 1;
 
 /**
  * Calculates the number of pages based on the total items and records per page.
@@ -13,48 +13,9 @@ export function numPages(totalItems) {
 }
 
 /**
- * Loads the bookmarks for the specified page.
- * @param {number} page - The page number to load.
- */
-export function loadCurrentPage(page) {
-  if (bookmarks.length === 0) {
-    // Display a message if no bookmarks are stored
-    document.getElementById('bookmark-list').innerHTML = '<p>No bookmarks stored.</p>';
-    updatePaginationLinks(1, 0); // Reset pagination
-    return;
-  }
-
-  // Ensure page is within bounds
-  if (page < 1) page = 1;
-  else if (page > numPages(bookmarks.length)) page = numPages(bookmarks.length);
-
-  currentPage = page; // Update the current page
-
-  const bookmarkList = document.getElementById('bookmark-list');
-  bookmarkList.innerHTML = ''; // Clear previous entries
-
-  const start = (currentPage - 1) * recordsPerPage;
-  const end = Math.min(start + recordsPerPage, bookmarks.length); // Ensure not to exceed array
-
-  // Render cards for bookmarks on current page
-  for (let i = start; i < end; i++) {
-    const card = renderCard(bookmarks[i].name, bookmarks[i].url, i);
-    bookmarkList.appendChild(card);
-  }
-
-  updatePaginationLinks(currentPage, bookmarks.length);
-}
-
-// Initialize pagination controls and load initial page on window load
-window.onload = function () {
-  setupPaginationControls();
-  loadCurrentPage(currentPage);
-};
-
-/**
  * Sets up pagination controls by attaching event listeners.
  */
-function setupPaginationControls() {
+export function setupPaginationControls() {
   const nextButton = document.getElementById('pagination-next');
   const prevButton = document.getElementById('pagination-previous');
 
@@ -130,22 +91,4 @@ function createPaginationLink(page, currentPage) {
     link.classList.add('is-current');
   }
   return link;
-}
-
-/**
- * Navigates to the previous page.
- */
-export function prevPage() {
-  if (currentPage > 1) {
-    loadCurrentPage(currentPage - 1);
-  }
-}
-
-/**
- * Navigates to the next page.
- */
-export function nextPage() {
-  if (currentPage < numPages(bookmarks.length)) {
-    loadCurrentPage(currentPage + 1);
-  }
 }
