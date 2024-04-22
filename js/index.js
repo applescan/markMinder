@@ -67,6 +67,7 @@ function orderBookmarks() {
  */
 function searchBookmarks() {
   const searchTerm = document.getElementById("search").value.trim().toLowerCase();
+  let currentSearchTerm = '';
   currentSearchTerm = searchTerm; // Update the current search term
   refreshDisplay() // Reset to the first page after search
 }
