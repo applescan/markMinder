@@ -1,0 +1,186 @@
+/* ==========================================================================
+   Import external CSS resources
+   ========================================================================== */
+   @import url(https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css);
+
+   /* ==========================================================================
+      Base element styles
+      ========================================================================== */
+   
+   /* Basic HTML element styling */
+   html {
+     font-family: 'open sans', arial, sans-serif;
+     color: #222;
+     font-size: 1em;
+     line-height: 1.4;
+   }
+   
+   /* ==========================================================================
+      Text selection styles
+      ========================================================================== */
+   
+   /* Highlighting text selection for better visibility */
+   ::-moz-selection {
+     background: #b3d4fc;  /* Light blue background for text selection in Firefox */
+     text-shadow: none;
+   }
+   
+   ::selection {
+     background: #b3d4fc;  /* Light blue background for text selection in other browsers */
+     text-shadow: none;
+   }
+   
+   /* ==========================================================================
+      Background styles for specific classes
+      ========================================================================== */
+   
+   /* Fullscreen fixed background for Lottie animations */
+   .lottie-background {
+     position: fixed;
+     top: 0;
+     left: 0;
+     width: 100vw;
+     height: 100vh;
+     z-index: -1;
+     overflow: hidden;
+   }
+   
+   /* Styling for the Lottie player to cover entire viewport and be slightly transparent */
+   .lottie-player {
+     position: absolute;
+     min-width: 100%;
+     min-height: 100%;
+     width: 100vw;
+     height: 100vh;
+     left: 50%;
+     transform: translate(-50%, -50%) scale(2.4);
+     opacity: 0.2;
+   }
+   
+   /* ==========================================================================
+      Dropdown and content padding styles
+      ========================================================================== */
+   
+   /* Interactive dropdown items */
+   .dropdown-item {
+     cursor: pointer;
+   }
+   
+   /* Padding for content within the hero section */
+   .hero-content {
+     padding: 6rem 3rem;
+   }
+   
+   /* Theming: Light and dark mode specific hover styles for dropdown items */
+   html[data-theme="light"] .dropdown-item:hover {
+     background-color: var(--bulma-link-light);  /* Light theme hover background */
+   }
+   
+   html[data-theme="dark"] .dropdown-item:hover {
+     background-color: var(--bulma-link);        /* Dark theme hover background */
+   }
+   
+   /* ==========================================================================
+      Container styles
+      ========================================================================== */
+   
+   /* Styling for the bookmark list container */
+   #bookmark-list {
+     min-height: 600px;
+     overflow-y: auto;
+   }
+   
+   /* ==========================================================================
+      Default browser resets and utility classes
+      ========================================================================== */
+   
+   /* Better looking default horizontal rule */
+   hr {
+     display: block;
+     height: 1px;
+     border: 0;
+     border-top: 1px solid #ccc;
+     margin: 1em 0;
+     padding: 0;
+   }
+   
+   /* Remove the gap between certain elements and their containers */
+   audio, canvas, iframe, img, svg, video {
+     vertical-align: middle;
+   }
+   
+   /* Remove default fieldset styles */
+   fieldset {
+     border: 0;
+     margin: 0;
+     padding: 0;
+   }
+   
+   /* Allow only vertical resizing of textareas */
+   textarea {
+     resize: vertical;
+   }
+   
+   /* ==========================================================================
+      Visibility utility classes
+      ========================================================================== */
+   
+   /* Hide visually and from screen readers */
+   .hidden, [hidden] {
+     display: none !important;
+   }
+   
+   /* Hide only visually, but available for screen readers */
+   .visually-hidden {
+     border: 0;
+     clip: rect(0, 0, 0, 0);
+     height: 1px;
+     margin: -1px;
+     overflow: hidden;
+     padding: 0;
+     position: absolute;
+     white-space: nowrap; /* 1 */
+   }
+   
+   /* Allow focusable elements to be seen when focused */
+   .visually-hidden.focusable:active,
+   .visually-hidden.focusable:focus {
+     clip: auto;
+     height: auto;
+     margin: 0;
+     overflow: visible;
+     position: static;
+     white-space: inherit;
+     width: auto;
+   }
+   
+   /* Hide visually and from screen readers, but maintain layout */
+   .invisible {
+     visibility: hidden;
+   }
+   
+   /* Clearfix: contain floats */
+   .clearfix::before, .clearfix::after {
+     content: "";
+     display: table;
+   }
+   .clearfix::after {
+     clear: both;
+   }
+   
+   /* ==========================================================================
+      Media queries for responsive and print styles
+      ========================================================================== */
+   
+   @media only screen and (min-width: 35em) {
+     /* Style adjustments for viewports meeting the condition */
+   }
+   
+   @media print, (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 1.25dppx), (min-resolution: 120dpi) {
+     /* Style adjustments for high resolution devices and printing */
+   }
+   
+   @media print {
+     /* Specific styles for print media */
+   }
+   
