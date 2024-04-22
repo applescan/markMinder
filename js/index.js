@@ -1,7 +1,5 @@
 import { setupPaginationControls } from './pagination.js';
-import { bookmarks, toggleTheme, refreshDisplay } from './app.js';
-
-let currentSearchTerm = '';
+import { bookmarks, toggleTheme, refreshDisplay, searchBookmarks } from './app.js';
 
 // Initialize pagination controls and load initial page on window load
 window.onload = () => {
@@ -62,13 +60,4 @@ function orderBookmarks() {
     orderText.innerHTML = 'Order by earliest to latest';
   }
   refreshDisplay() // Reload the current page with the sorted bookmarks
-}
-
-/**
- * Function to filter and display bookmarks based on the search term.
- */
-function searchBookmarks() {
-  const searchTerm = document.getElementById("search").value.trim().toLowerCase();
-  currentSearchTerm = searchTerm; // Update the current search term
-  refreshDisplay() // Reset to the first page after search
 }

@@ -94,3 +94,12 @@ export function loadCurrentPage(page) {
 export function refreshDisplay() {
   loadCurrentPage(currentPage);
 }
+
+/**
+ * Function to filter and display bookmarks based on the search term.
+ */
+export function searchBookmarks() {
+  const searchTerm = document.getElementById("search").value.trim().toLowerCase();
+  currentSearchTerm = searchTerm; // Update the current search term
+  refreshDisplay() // Reset to the first page after search
+}
