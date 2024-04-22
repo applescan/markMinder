@@ -35,6 +35,5 @@ The app involves form validation, managing state across page reloads, and mainta
 - **Scalability**: Scalability is limited due to reliance on client-side technologies and local storage. Not suitable for storing large quantities of data.
 - **No Real-time Data Validation**: The URL existence check might not always be reliable due to cross-origin HTTP requests limitations (CORS).
 - **No Date on Bookmarks**: The application does not track or display the date when a bookmark was added or last modified.
-- **Form Validation on Edit**: Using alert dialogs to update bookmark details prevents the form validation from working correctly during edits.
 - **Order of Bookmarks**: Bookmark items will always display from earliest to newest as the array is not reversed on load.
 - **Sorting Issue**: Sorting of numeric values does not work correctly, e.g., sorting "1, 11, 12, 2" instead of "1, 2, 11, 12" due to lexicographical sorting of strings instead of numeric sorting.
