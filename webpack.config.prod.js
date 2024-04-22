@@ -10,6 +10,7 @@ module.exports = merge(common, {
     path: path.resolve(__dirname, 'public'),
     filename: '[name].[contenthash].js',
     clean: true,
+    publicPath: '/'
   },
   plugins: [
     new HtmlWebpackPlugin({
