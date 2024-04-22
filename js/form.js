@@ -1,26 +1,36 @@
-import { refreshDisplay, bookmarks } from './app.js';
-
-/**
- * Sets up the bookmark form submission handler when the document is fully loaded.
- */
-document.addEventListener('DOMContentLoaded', () => {
-  const form = document.getElementById('bookmark-form');
-  form.addEventListener('submit', handleBookmarkSubmit);
-});
+import { bookmarks, refreshDisplay } from './app.js';
 
 /**
  * Handles the bookmark form submission, validates input, and redirects to the result page.
  * @param {Event} event - The form submission event.
  */
-function handleBookmarkSubmit(event) {
+export function handleBookmarkSubmit(event) {
   event.preventDefault(); // Prevent default form submission behavior.
 
   //remove whitespace from form value
   const bookmarkName = event.target.bookmarkName.value.trim();
   const bookmarkUrl = event.target.bookmarkUrl.value.trim();
+  const nameError = document.getElementById('name-error');
+  const urlError = document.getElementById('url-error');
 
-  if (!bookmarkName || !isValidUrl(bookmarkUrl)) {
-    alert('Please enter a valid name and URL.');
+  // Clear previous errors
+  nameError.textContent = '';
+  urlError.textContent = '';
+
+  let hasError = false;
+
+  if (!bookmarkName) {
+    nameError.textContent = 'Please enter a valid name.';
+    hasError = true;
+  }
+
+  if (!isValidUrl(bookmarkUrl)) {
+    urlError.textContent = 'Please enter a valid URL.';
+    hasError = true;
+  }
+
+  //If there's error, return early
+  if (hasError) {
     return;
   }
 
@@ -31,9 +41,9 @@ function handleBookmarkSubmit(event) {
   } catch (error) {
     console.error('Failed to save the last submitted bookmark:', error);
   }
-  event.target.reset(); // Reset the form fields.
   redirectTo('/result.html'); // Redirect to the results page.
 }
+
 
 /**
  * Validates if a given string is a valid URL.

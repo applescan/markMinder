@@ -11,13 +11,12 @@
   <link rel="stylesheet" href="css/style.css">
 
   <!-- SEO metadata -->
-  <meta name="description"
-    content="Mark-Minder helps you organize, save, and access your favorite web pages easily. 
+  <meta name="description" content="Mark-Minder helps you organize, save, and access your favorite web pages easily. 
     Enhance your web browsing experience with structured bookmarking and personalized collections.">
 
   <!-- Icon links for different devices and purposes -->
-  <link rel="icon" href="/icon.svg" type="image/svg+xml">
-  <link rel="apple-touch-icon" href="icon.png">
+  <link rel="icon" href="./img/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="./img/icon.png">
   <link rel="manifest" href="site.webmanifest">
   <meta name="theme-color" content="#fafafa">
 
@@ -53,26 +52,34 @@
         <!-- Bookmark form for adding new bookmarks -->
         <form id="bookmark-form">
           <div class="field is-grouped">
-            <p class="control is-expanded has-icons-left">
+            <!-- Container for the Bookmark Name Input -->
+            <div class="control is-expanded has-icons-left">
               <input class="input" type="text" placeholder="Bookmark name" name="bookmarkName">
               <span class="icon is-small is-left">
                 <i class="fas fa-bookmark"></i>
               </span>
-            </p>
-            <p class="control is-expanded has-icons-left">
+              <p class="help is-danger" id="name-error"></p> <!-- Error message for name -->
+            </div>
+
+            <!-- Container for the URL Input -->
+            <div class="control is-expanded has-icons-left">
               <input class="input" type="url" placeholder="URL" name="bookmarkUrl">
               <span class="icon is-small is-left">
                 <i class="fas fa-link"></i>
               </span>
-            </p>
-            <p class="control">
+              <p class="help is-danger" id="url-error"></p> <!-- Error message for URL -->
+            </div>
+
+            <!-- Submit Button -->
+            <div class="control">
               <button class="button is-link" type="submit">Bookmark</button>
-            </p>
+            </div>
           </div>
         </form>
 
+
         <!-- Sorting and searching controls -->
-        <div class="columns is-vcentered is-gapless">
+        <div class="columns is-vcentered is-1">
           <div class="column is-narrow">
             <div class="dropdown is-hoverable py-2">
               <div class="dropdown-trigger">
@@ -95,7 +102,7 @@
               </div>
             </div>
           </div>
-          <div class="column is-narrow ml-3">
+          <div class="column is-narrow">
             <div class="control has-icons-left">
               <input class="input" type="text" placeholder="Search" name="search" id="search">
               <span class="icon is-small is-left">

@@ -1,5 +1,4 @@
-import { loadCurrentPage } from './index.js';
-import { recordsPerPage, bookmarks } from './app.js';
+import { recordsPerPage, bookmarks, loadCurrentPage } from './app.js';
 
 let currentPage = 1;
 

@@ -1,4 +1,4 @@
-import { refreshDisplay, bookmarks } from './app.js';
+import { bookmarks, refreshDisplay } from './app.js';
 import { isValidUrl } from './form.js';
 
 /**
