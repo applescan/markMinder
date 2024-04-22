@@ -1,6 +1,8 @@
 import { setupPaginationControls } from './pagination.js';
 import { bookmarks, toggleTheme, refreshDisplay } from './app.js';
 
+let currentSearchTerm = '';
+
 // Initialize pagination controls and load initial page on window load
 window.onload = () => {
   setupPaginationControls();
@@ -67,7 +69,6 @@ function orderBookmarks() {
  */
 function searchBookmarks() {
   const searchTerm = document.getElementById("search").value.trim().toLowerCase();
-  let currentSearchTerm = '';
   currentSearchTerm = searchTerm; // Update the current search term
   refreshDisplay() // Reset to the first page after search
 }
