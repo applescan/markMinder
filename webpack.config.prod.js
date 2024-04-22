@@ -7,15 +7,21 @@ const CopyPlugin = require('copy-webpack-plugin');
 module.exports = merge(common, {
   mode: 'production',
   output: {
-    path: path.resolve(__dirname, 'public'),  
-    filename: '[name].[contenthash].js',  
-    clean: true,  
+    path: path.resolve(__dirname, 'public'),
+    filename: '[name].[contenthash].js',
+    clean: true,
   },
   plugins: [
     new HtmlWebpackPlugin({
       template: './index.html',
-      inject: 'body',  
+      filename: 'index.html',
+      chunks: ['main']
     }),
+    new HtmlWebpackPlugin({
+      template: './result.html',
+      filename: 'result.html',
+      chunks: ['result']
+    }),    
     new CopyPlugin({
       patterns: [
         { from: 'img', to: 'img' },
@@ -26,7 +32,6 @@ module.exports = merge(common, {
         { from: 'img/icon.png', to: 'img/icon.png' },
         { from: '404.html', to: '404.html' },
         { from: 'site.webmanifest', to: 'site.webmanifest' },
-        { from: 'result.html', to: 'result.html' },
       ],
     }),
   ],
