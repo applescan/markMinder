@@ -20,6 +20,8 @@ This document outlines the design and architecture of a JavaScript-based web app
 
 ## 4. Design Considerations
 
+The app involves form validation, managing state across page reloads, and maintaining a list of bookmarks. Functional Programming can handle these requirements efficiently, especially in JavaScript where functions can be easily passed around and composed. A functional approach simplify state management and improve the maintainability of validation logic.
+
 ### 4.1 Data Storage
 - **Local Storage**: Utilizes the browser's localStorage to persist bookmark data across sessions. Each bookmark entry includes the URL and name.
 
