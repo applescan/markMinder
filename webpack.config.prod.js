@@ -27,7 +27,7 @@ module.exports = merge(common, {
       patterns: [
         { from: 'img', to: 'img' },
         { from: 'css', to: 'css' },
-        { from: 'js/vendor', to: 'js/vendor' },
+        { from: 'js', to: 'js' },
         { from: 'img/icon.svg', to: 'img/icon.svg' },
         { from: 'robots.txt', to: 'robots.txt' },
         { from: 'img/icon.png', to: 'img/icon.png' },
