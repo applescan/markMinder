@@ -58,9 +58,12 @@ export function loadCurrentPage(page) {
     );
   }
 
+// Display different messages based on whether there are bookmarks and if any match the filter
   if (filteredBookmarks.length === 0) {
-    // Display a message if no bookmarks match the search or no bookmarks are stored
-    document.getElementById("bookmark-list").innerHTML = "<p>No bookmarks</p>";
+    const message = bookmarks.length === 0 ? 
+                    "<p>No bookmarks available.</p>" : 
+                    "<p>No bookmarks match your search.</p>";
+    document.getElementById("bookmark-list").innerHTML = message;
     updatePaginationLinks(1, 0); // Reset pagination
     return;
   }
