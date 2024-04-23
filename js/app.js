@@ -22,34 +22,6 @@ export function numPages(totalItems) {
   return Math.ceil(totalItems / recordsPerPage);
 }
 
-// class BookmarkManager {
-//   constructor() {
-//     this.bookmarks = []
-//   }
-
-//   addBookmark(id, url, title) {
-//     const bookmark = {
-//       id, url, title
-//     }
-//     this.bookmarks.push(bookmark)
-//     return bookmark
-//   }
-
-//   deleteBookmark(id) {
-//     this.bookmarks.splice(this.bookmarks.indexOf(id), 1)
-//   }
-
-//   editBookmark(id, title, url) {
-//     const bookmark = this.bookmarks.find(bookmark => bookmark.id === id)
-//     if (bookmark) {
-//       bookmark.title = title;
-//       bookmark.url = url;
-//     }
-//   }
-// }
-
-// export default BookmarkManager()
-
 // Set up initial page and event listeners on window load
 // Sets up the bookmark form submission handler when the document is fully loaded.
 document.addEventListener('DOMContentLoaded', () => {
