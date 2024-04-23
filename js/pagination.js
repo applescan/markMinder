@@ -1,22 +1,16 @@
-import { recordsPerPage, bookmarks, loadCurrentPage } from './app.js';
+import { loadCurrentPage, totalPages } from './app.js';
 
 let currentPage = 1;
 
-/**
- * Calculates the number of pages based on the total items and records per page.
- * @param {number} totalItems - The total number of bookmarks.
- * @return {number} - The total number of pages.
- */
-export function numPages(totalItems) {
-  return Math.ceil(totalItems / recordsPerPage);
-}
+// Define the pagination buttons
+const nextButton = document.getElementById('pagination-next');
+const prevButton = document.getElementById('pagination-previous');
+
 
 /**
  * Sets up pagination controls by attaching event listeners.
  */
 export function setupPaginationControls() {
-  const nextButton = document.getElementById('pagination-next');
-  const prevButton = document.getElementById('pagination-previous');
 
   if (nextButton && prevButton) {
     nextButton.addEventListener('click', () => navigatePage('next'));
@@ -29,8 +23,7 @@ export function setupPaginationControls() {
  * @param {string} direction - The navigation direction ('next' or 'prev').
  */
 function navigatePage(direction) {
-  const totalItems = bookmarks.length;
-  const totalPages = numPages(totalItems);
+  // The current page will be added  + 1 if page direction is 'next' or subtracted by 1 if page direction is 'prev'.
   currentPage = direction === 'next' ? Math.min(currentPage + 1, totalPages) : Math.max(currentPage - 1, 1);
   loadCurrentPage(currentPage);
 }
@@ -40,15 +33,12 @@ function navigatePage(direction) {
  * @param {number} currentPage - The currently active page.
  * @param {number} totalItems - Total number of bookmarks.
  */
-export function updatePaginationLinks(currentPage, totalItems) {
-  const nextButton = document.getElementById('pagination-next');
-  const prevButton = document.getElementById('pagination-previous');
-  const totalPages = numPages(totalItems);
-
+export function updatePaginationLinks(currentPage) {
   // Update button visibility based on current and total pages
   updateButtonVisibility(nextButton, currentPage >= totalPages || totalPages <= 1);
   updateButtonVisibility(prevButton, currentPage <= 1);
 
+  // Define the paginationList from the pagination container
   const paginationList = document.querySelector('.pagination-list');
   paginationList.innerHTML = ''; // Clear existing links before updating
 
@@ -57,6 +47,7 @@ export function updatePaginationLinks(currentPage, totalItems) {
   // Append new pagination links
   for (let page = 1; page <= totalPages; page++) {
     const li = document.createElement('li');
+    // Calling the createPaginationLink function, passing in page and current page (the purple button)
     const link = createPaginationLink(page, currentPage);
     li.appendChild(link);
     paginationList.appendChild(li);

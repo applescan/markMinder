@@ -1,5 +1,5 @@
 
-import { updatePaginationLinks, numPages } from './pagination.js';
+import { updatePaginationLinks } from './pagination.js';
 import { renderCard } from './card.js';
 import { handleBookmarkSubmit } from './form.js';
 
@@ -8,6 +8,47 @@ let currentPage = 1;
 let currentSearchTerm = '';
 export const bookmarks = JSON.parse(localStorage.getItem('bookmarks')) || [];
 export const recordsPerPage = 20;
+
+// Define items for pages
+const totalItems = bookmarks ? bookmarks.length : 0;
+export const totalPages = numPages(totalItems);
+
+/**
+ * Calculates the number of pages based on the total items and records per page.
+ * @param {number} totalItems - The total number of bookmarks.
+ * @return {number} - The total number of pages.
+ */
+export function numPages(totalItems) {
+  return Math.ceil(totalItems / recordsPerPage);
+}
+
+// class BookmarkManager {
+//   constructor() {
+//     this.bookmarks = []
+//   }
+
+//   addBookmark(id, url, title) {
+//     const bookmark = {
+//       id, url, title
+//     }
+//     this.bookmarks.push(bookmark)
+//     return bookmark
+//   }
+
+//   deleteBookmark(id) {
+//     this.bookmarks.splice(this.bookmarks.indexOf(id), 1)
+//   }
+
+//   editBookmark(id, title, url) {
+//     const bookmark = this.bookmarks.find(bookmark => bookmark.id === id)
+//     if (bookmark) {
+//       bookmark.title = title;
+//       bookmark.url = url;
+//     }
+//   }
+// }
+
+// export default BookmarkManager()
 
 // Set up initial page and event listeners on window load
 // Sets up the bookmark form submission handler when the document is fully loaded.
@@ -58,13 +99,13 @@ export function loadCurrentPage(page) {
     );
   }
 
-// Display different messages based on whether there are bookmarks and if any match the filter
+  // Display different messages based on whether there are bookmarks and if any match the filter
   if (filteredBookmarks.length === 0) {
-    const message = bookmarks.length === 0 ? 
-                    "<p>No bookmarks available.</p>" : 
-                    "<p>No bookmarks match your search.</p>";
+    const message = bookmarks.length === 0 ?
+      "<p>No bookmarks available.</p>" :
+      "<p>No bookmarks match your search.</p>";
     document.getElementById("bookmark-list").innerHTML = message;
-    updatePaginationLinks(1, 0); // Reset pagination
+    updatePaginationLinks(1); // Reset pagination
     return;
   }
 
@@ -87,8 +128,7 @@ export function loadCurrentPage(page) {
       bookmarkList.appendChild(card);
     }
   }
-
-  updatePaginationLinks(currentPage, filteredBookmarks.length);
+  updatePaginationLinks(currentPage);
 }
 
 /**
