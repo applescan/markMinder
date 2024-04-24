@@ -2,6 +2,7 @@
 import { updatePaginationLinks } from './pagination.js';
 import { renderCard } from './card.js';
 import { handleBookmarkSubmit } from './form.js';
+import { setupPaginationControls } from './pagination.js';
 
 // Default constants and state variables
 let currentPage = 1;
@@ -12,6 +13,12 @@ export const recordsPerPage = 20;
 // Define items for pages
 const totalItems = bookmarks ? bookmarks.length : 0;
 export const totalPages = numPages(totalItems);
+
+// Initialize pagination controls and load initial page on window load
+window.onload = () => {
+  setupPaginationControls(currentPage);
+  refreshDisplay()
+};
 
 /**
  * Calculates the number of pages based on the total items and records per page.

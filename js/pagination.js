@@ -1,28 +1,26 @@
 import { loadCurrentPage, totalPages } from './app.js';
 
-let currentPage = 1;
-
 // Define the pagination buttons
 const nextButton = document.getElementById('pagination-next');
 const prevButton = document.getElementById('pagination-previous');
 
-
 /**
  * Sets up pagination controls by attaching event listeners.
  */
-export function setupPaginationControls() {
+export function setupPaginationControls(currentPage) {
 
   if (nextButton && prevButton) {
-    nextButton.addEventListener('click', () => navigatePage('next'));
-    prevButton.addEventListener('click', () => navigatePage('prev'));
+    nextButton.addEventListener('click', () => navigatePage('next', currentPage));
+    prevButton.addEventListener('click', () => navigatePage('prev', currentPage));
   }
 }
 
 /**
  * Navigates to the next or previous page based on the given direction.
  * @param {string} direction - The navigation direction ('next' or 'prev').
+ * @param {number} currentPage - The current page number.
  */
-function navigatePage(direction) {
+function navigatePage(direction, currentPage) {
   // The current page will be added  + 1 if page direction is 'next' or subtracted by 1 if page direction is 'prev'.
   currentPage = direction === 'next' ? Math.min(currentPage + 1, totalPages) : Math.max(currentPage - 1, 1);
   loadCurrentPage(currentPage);

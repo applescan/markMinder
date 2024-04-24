@@ -1,11 +1,4 @@
-import { setupPaginationControls } from './pagination.js';
 import { bookmarks, toggleTheme, refreshDisplay, searchBookmarks } from './app.js';
-
-// Initialize pagination controls and load initial page on window load
-window.onload = () => {
-  setupPaginationControls();
-  refreshDisplay()
-};
 
 // Attach event listeners for sorting, search and ordering bookmarks
 document.getElementById('sort-a-z').addEventListener('click', () => {
